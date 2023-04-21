@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
+import {SuperButton} from "./SuperButton";
 
 
 type PropsType = {
@@ -30,7 +31,8 @@ export const AddForm = (props: PropsType) => {
             {addForm && <div>
                 <input value={text} type="text" onChange={updateText}/>
                 <input value={rating} type='number' onChange={updateRating} />
-                <button onClick={addFilmHandler} disabled={error}>ADD</button>
+                {/*<button onClick={addFilmHandler} disabled={error}>ADD</button>*/}
+                <SuperButton buttonCallback={addFilmHandler} title={'ADD'} disabled={error}/>
                 {error && <div> Enter the number between 0 and 100</div>}
             </div>
 
