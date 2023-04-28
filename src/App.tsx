@@ -14,7 +14,7 @@ function App() {
         {id: v1(), name: 'The Godfather Part II', watched: false, rating: 90, genre: "Crime"},
         {id: v1(), name: 'Schindler\'s List', watched: false, rating: 89, genre: "Military"},
         {id: v1(), name: 'The Lord of the Rings', watched: false, rating: 89, genre: "Fantasy"},
-        {id: v1(), name: ' Pulp Fiction', watched: false, rating: 89, genre: "Crime"}
+        {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime"}
     ])
 
     const [genre, setGenre] = useState("All");
