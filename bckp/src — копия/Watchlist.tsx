@@ -4,6 +4,7 @@ type PropsType = {
     title: string
 }
 export const Watchlist = (props:PropsType) => {
+
     return (
         <>
             <h1>{props.title}</h1>

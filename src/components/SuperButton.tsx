@@ -1,15 +1,20 @@
 import React from 'react';
+ type PropsType ={
+     name: string
+     onClickCallBack: ()=>void
+     disabled?: boolean
+ }
 
-type ButtonPropsType ={
-    buttonCallback: ()=> void
-    title: string
-    disabled?: boolean
-}
-export function SuperButton(props: ButtonPropsType) {
+export const SuperButton = (props: PropsType) => {
+
+    const onClickHandler = () =>{
+        props.onClickCallBack()
+    }
 
     return (
-        <button onClick={props.buttonCallback} disabled={props.disabled}>{props.title}</button>
-    )
-
-}
+        <button onClick={onClickHandler} disabled={props.disabled}>
+            {props.name}
+        </button>
+    );
+};
 

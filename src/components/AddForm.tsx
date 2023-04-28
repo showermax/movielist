@@ -1,43 +1,54 @@
 import React, {ChangeEvent, useState} from 'react';
 import {SuperButton} from "./SuperButton";
+import {v1} from "uuid";
+import {SuperInput} from "./SuperInput";
+import {MovieType} from "./Watchlist";
+// import {InputGenre} from './InputGenre'
 
 
 type PropsType = {
-    addFilm: (title: string, rating: number) => void
+    addFilm: (newFilm: MovieType) => void
 }
-export const AddForm = (props: PropsType) => {
+export const AddForm: React.FC<PropsType> = ({addFilm}) => {
 
+
+    const [newFilm, setNewFilm] = useState<MovieType>(
+        {id: v1(), name: "", watched: false, rating: NaN, genre: ""}
+    )
     const [addForm, setAddForm] = useState<boolean>(false)
-    const [text, setText] = useState<string>("")
-    const [rating, setRating] = useState<number>(98)
+    // const [text, setText] = useState<string>("")
+    // const [genre, setGenre] = useState<string>('')
+    // const [rating, setRating] = useState<number>(0)
+    // const [buttonDisabled, setButtonDisabled] = useState(false)
 
-    const updateText = (e: ChangeEvent<HTMLInputElement>) => {
-        setText(e.currentTarget.value)
-    }
-    const updateRating = (e: ChangeEvent<HTMLInputElement>) => {
-        setRating(+e.currentTarget.value)
-    }
-    let error = false
-    if (isNaN(rating) || rating >100 || rating < 0) {
-        error = true
-    }
+    let buttonDisabled = false
+
     const addFilmHandler = () => {
-        props.addFilm(text,rating)
-        setAddForm(false)
+        addFilm(newFilm)
+        setNewFilm({id: v1(), name: "", watched: false, rating: NaN, genre: ""})
     }
+
+    if (newFilm.rating > 100 || newFilm.rating < 0) {
+        buttonDisabled = true
+    }
+
     return (
         <>
-            <button onClick={() => setAddForm(!addForm)}>ADD FILM</button>
+            <SuperButton name={'ADD FILM'} onClickCallBack={() => setAddForm(!addForm)}/>
             {addForm && <div>
-                <input value={text} type="text" onChange={updateText}/>
-                <input value={rating} type='number' onChange={updateRating} />
-                {/*<button onClick={addFilmHandler} disabled={error}>ADD</button>*/}
-                <SuperButton buttonCallback={addFilmHandler} title={'ADD'} disabled={error}/>
-                {error && <div> Enter the number between 0 and 100</div>}
-            </div>
 
+                <SuperInput value={newFilm.name} type={'text'} newFilm={newFilm} setNewFilm={setNewFilm}
+                            property={'name'}/>
+                <SuperInput value={newFilm.rating} type={'number'} newFilm={newFilm} setNewFilm={setNewFilm}
+                            property={'rating'}/>
+                <SuperInput value={newFilm.genre} type={'text'} newFilm={newFilm} setNewFilm={setNewFilm}
+                            property={'genre'}/>
+                <SuperButton name={'ADD'} onClickCallBack={addFilmHandler} disabled={buttonDisabled}/>
+            </div>
             }
         </>
 
     );
 };
+
+

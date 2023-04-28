@@ -1,23 +1,25 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {AddForm} from "./AddForm";
 import {FilterGenre} from "./FilterGenre";
+import {SuperButton} from "./SuperButton";
+import {SuperCheckBox} from "./SuperCheckBox";
 
 export type PropsType = {
     movies: MovieType[]
     title: string
     removeFilms: (id: string) => void
-    addFilm: (title: string, rating: number) => void
+    addFilm: (newFilm: MovieType) => void
     genre: string
     setGenre: (genre: string) => void
-    genreFilter: (genre: string)=>void
-    changeStatus:(id:string, watched:boolean)=>void
+    genreFilter: (genre: string) => void
+    changeStatus: (id: string, watched: boolean) => void
 }
 
 export type MovieType = {
     id: string
     name: string
     watched: boolean
-    rating:number
+    rating: number
     genre: string
 }
 
@@ -36,20 +38,24 @@ export const Watchlist = (props: PropsType) => {
         }
     });
 
+    const checkBoxHandler = (id: string, check: boolean) => {
+        props.changeStatus(id, check)
+    }
+
     return (
         <>
             <h3> {props.title} </h3>
             <FilterGenre genre={props.genre} genreFilter={props.genreFilter}/>
             <ul style={{padding: "0"}}>
                 {filteredMovies.map((el) => {
-                    const checboxHandler = (e:ChangeEvent<HTMLInputElement>) =>{
-                        props.changeStatus(el.id,e.currentTarget.checked)
-                    }
+                    // const checkBoxHandler = (check:boolean)=>{
+                    //     props.changeStatus(el.id, check)
+                    // }
                     return (
                         <li key={el.id} style={{listStyleType: "none"}}>
-                            <button onClick={() => removeFilmsHandler(el.id)}>x
-                            </button>
-                            <input type={'checkbox'} checked={el.watched} onChange={checboxHandler}/>
+                            <SuperButton name={'del'} onClickCallBack={() => removeFilmsHandler(el.id)}/>
+                            {/*<input type={'checkbox'} onChange={checkBoxHandler} checked={el.watched}/>*/}
+                            <SuperCheckBox callBack={(check) => checkBoxHandler(el.id, check)} checked={el.watched}/>
                             {`${el.name}: ${el.rating}`}
                         </li>
 
