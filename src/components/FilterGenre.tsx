@@ -1,7 +1,6 @@
 import React from 'react';
 
-type PropsType =
-    {
+type PropsType = {
         genre: string
         genreFilter: (genre: string) => void
     }
