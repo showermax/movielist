@@ -4,7 +4,7 @@ import {v1} from "uuid";
 import {MovieType, Watchlist} from "./components/Watchlist";
 
 
-
+//Проверка ГИТХАБ
 function App() {
     const title:string = 'Best movies'
     const [movies, setMovies] = useState<Array<MovieType>>([
