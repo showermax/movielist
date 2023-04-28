@@ -5,8 +5,6 @@ type PropsType =
         genre: string
         genreFilter: (genre: string) => void
     }
-
-
 export const FilterGenre = (props: PropsType) => {
     return (
         <div>
