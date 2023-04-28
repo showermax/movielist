@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {v1} from "uuid";
 import {MovieType, Watchlist} from "./components/Watchlist";
-import {findAllByDisplayValue} from "@testing-library/react";
+
 
 type MoviesType ={
     [key:string]: MovieType[]
