@@ -14,7 +14,7 @@
 }
 .list{
   display:flex;
-  flex-direction: column;
+
 }
 .main {
   min-width: 300px;
