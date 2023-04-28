@@ -12,7 +12,10 @@
 .App-link {
   color: #61dafb;
 }
-
+.list{
+  display:flex;
+  flex-direction: column;
+}
 .main {
   min-width: 300px;
   text-align: left;

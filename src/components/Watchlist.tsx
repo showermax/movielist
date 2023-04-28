@@ -43,7 +43,7 @@ export const Watchlist = (props: PropsType) => {
     }
 
     return (
-        <>
+        <div className={'main'}>
             <h3> {props.title} </h3>
             <FilterGenre genre={props.genre} genreFilter={props.genreFilter}/>
             <ul style={{padding: "0"}}>
@@ -63,6 +63,6 @@ export const Watchlist = (props: PropsType) => {
                 })}
             </ul>
             <AddForm addFilm={props.addFilm}/>
-        </>
+        </div>
     );
 };
