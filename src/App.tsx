@@ -66,7 +66,9 @@ function App() {
     function removeFilms(id: string, watchListId: string) {
         setMovies({...movies, [watchListId]: movies[watchListId].filter(el => el.id !== id)})
     }
-    const addFilm = (newFilm: MovieType) => {
+    const addFilm = (newFilm: MovieType, watchListId: string) => {
+        setMovies({...movies, [watchListId]: [newFilm, ...movies[watchListId]]})
+
         //setMovies([...movies, newFilm])
     }
     const genreFilter = (genre: string) => {

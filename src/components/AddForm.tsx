@@ -7,10 +7,10 @@ import {MovieType} from "./Watchlist";
 
 
 type PropsType = {
-    addFilm: (newFilm: MovieType) => void
+    addFilm: (newFilm: MovieType, watchListId: string) => void
+    watchListId: string
 }
-export const AddForm: React.FC<PropsType> = ({addFilm}) => {
-
+export const AddForm: React.FC<PropsType> = ({watchListId, addFilm}) => {
 
     const [newFilm, setNewFilm] = useState<MovieType>(
         {id: v1(), name: "", watched: false, rating: NaN, genre: ""}
@@ -24,7 +24,7 @@ export const AddForm: React.FC<PropsType> = ({addFilm}) => {
     let buttonDisabled = false
 
     const addFilmHandler = () => {
-        addFilm(newFilm)
+        addFilm(newFilm, watchListId)
         setNewFilm({id: v1(), name: "", watched: false, rating: NaN, genre: ""})
     }
 
