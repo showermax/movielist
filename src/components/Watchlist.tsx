@@ -7,7 +7,7 @@ import {SuperCheckBox} from "./SuperCheckBox";
 export type PropsType = {
     movies: MovieType[]
     title: string
-    removeFilms: (id: string) => void
+    removeFilms: (id: string,  watchListId: string) => void
     addFilm: (newFilm: MovieType) => void
     genre: string
     setGenre: (genre: string) => void
@@ -29,7 +29,7 @@ export const Watchlist = (props: PropsType) => {
 
 
     const removeFilmsHandler = (id: string) => {
-        props.removeFilms(id)
+        props.removeFilms(id, props.watchListId)
     }
     const filteredMovies = props.movies.filter((movie) => {
         if (props.genre === "All") {
