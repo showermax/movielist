@@ -56,11 +56,13 @@ function App() {
 
     const [genre, setGenre] = useState("All");
 
-    const changeStatus = (id: string, watched: boolean) => {
+    const changeStatus = (id: string, watched: boolean, watchListId: string ) => {
+        setMovies({...movies, [watchListId]: movies[watchListId].map(el => el.id !==id ? el : {...el, watched:watched}) })
         //setMovies(movies.map(el => el.id === id ? {...el, watched: watched} : el))
     }
 
     function removeFilms(id: string) {
+
         //setMovies(movies.filter(el => el.id !== id))
     }
 
@@ -79,6 +81,7 @@ function App() {
                     return(
                         <Watchlist
                             key={el.id}
+                            watchListId={el.id}
                             movies={movies[el.id]}
                             title={el.title}
                             removeFilms={removeFilms}

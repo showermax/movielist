@@ -12,7 +12,8 @@ export type PropsType = {
     genre: string
     setGenre: (genre: string) => void
     genreFilter: (genre: string) => void
-    changeStatus: (id: string, watched: boolean) => void
+    changeStatus: (id: string, watched: boolean, watchListId: string) => void
+    watchListId: string
 }
 
 export type MovieType = {
@@ -39,7 +40,7 @@ export const Watchlist = (props: PropsType) => {
     });
 
     const checkBoxHandler = (id: string, check: boolean) => {
-        props.changeStatus(id, check)
+        props.changeStatus(id, check, props.watchListId)
     }
 
     return (
