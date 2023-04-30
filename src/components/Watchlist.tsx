@@ -9,9 +9,9 @@ export type PropsType = {
     title: string
     removeFilms: (id: string,  watchListId: string) => void
     addFilm: (newFilm: MovieType, watchListId: string) => void
-    genre: string
+   /* genre: string
     setGenre: (genre: string) => void
-    genreFilter: (genre: string) => void
+    genreFilter: (genre: string) => void*/
     changeStatus: (id: string, watched: boolean, watchListId: string) => void
     watchListId: string
 }
@@ -26,16 +26,19 @@ export type MovieType = {
 
 
 export const Watchlist = (props: PropsType) => {
-
+    const [genre, setGenre] = useState("All");
+    const genreFilter = (genre: string) => {
+        setGenre(genre)
+    }
 
     const removeFilmsHandler = (id: string) => {
         props.removeFilms(id, props.watchListId)
     }
     const filteredMovies = props.movies.filter((movie) => {
-        if (props.genre === "All") {
+        if (genre === "All") {
             return true;
         } else {
-            return movie.genre.toLowerCase() === props.genre.toLowerCase();
+            return movie.genre.toLowerCase() === genre.toLowerCase();
         }
     });
 
@@ -46,7 +49,7 @@ export const Watchlist = (props: PropsType) => {
     return (
         <div className={'main'}>
             <h3> {props.title} </h3>
-            <FilterGenre genre={props.genre} genreFilter={props.genreFilter}/>
+            <FilterGenre genre={genre} genreFilter={genreFilter}/>
             <ul style={{padding: "0"}}>
                 {filteredMovies.map((el) => {
                     // const checkBoxHandler = (check:boolean)=>{

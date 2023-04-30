@@ -55,7 +55,6 @@ function App() {
         {id: watched, title: 'Watched Movies'}
     ])
 
-    const [genre, setGenre] = useState("All");
 
     const changeStatus = (id: string, watched: boolean, watchListId: string) => {
         setMovies({
@@ -68,12 +67,8 @@ function App() {
     }
     const addFilm = (newFilm: MovieType, watchListId: string) => {
         setMovies({...movies, [watchListId]: [newFilm, ...movies[watchListId]]})
+    }
 
-        //setMovies([...movies, newFilm])
-    }
-    const genreFilter = (genre: string) => {
-        //setGenre(genre)
-    }
     //const filteredMovies = movies.filter((m) => genre === "All" ? m : m.genre.toLowerCase() === genre.toLowerCase())
 
     return (
@@ -88,16 +83,14 @@ function App() {
                                 title={el.title}
                                 removeFilms={removeFilms}
                                 addFilm={addFilm}
-                                genreFilter={genreFilter}
+                               /* genreFilter={genreFilter}
                                 setGenre={setGenre}
-                                genre={genre}
+                                genre={genre}*/
                                 changeStatus={changeStatus}
                             />
                         )
                     }
                 )}
-
-
             </div>
         </header>
     );
