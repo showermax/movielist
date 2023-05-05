@@ -7,13 +7,13 @@ import {SuperCheckBox} from "./SuperCheckBox";
 export type PropsType = {
     movies: MovieType[]
     title: string
-    removeFilms: (id: string,  watchListId: string) => void
+    removeFilms: (id: string) => void
     addFilm: (newFilm: MovieType, watchListId: string) => void
    /* genre: string
     setGenre: (genre: string) => void
     genreFilter: (genre: string) => void*/
-    changeStatus: (id: string, watched: boolean, watchListId: string) => void
-    watchListId: string
+    changeStatus: (id: string, watched: boolean) => void
+    //watchListId: string
 }
 
 export type MovieType = {
@@ -32,7 +32,7 @@ export const Watchlist = (props: PropsType) => {
     }
 
     const removeFilmsHandler = (id: string) => {
-        props.removeFilms(id, props.watchListId)
+        props.removeFilms(id)
     }
     const filteredMovies = props.movies.filter((movie) => {
         if (genre === "All") {
@@ -43,7 +43,7 @@ export const Watchlist = (props: PropsType) => {
     });
 
     const checkBoxHandler = (id: string, check: boolean) => {
-        props.changeStatus(id, check, props.watchListId)
+        props.changeStatus(id, check)
     }
 
     return (
@@ -66,7 +66,7 @@ export const Watchlist = (props: PropsType) => {
                     )
                 })}
             </ul>
-            <AddForm addFilm={props.addFilm} watchListId={props.watchListId}/>
+           {/* <AddForm addFilm={props.addFilm} watchListId={props.watchListId}/>*/}
         </div>
     );
 };
