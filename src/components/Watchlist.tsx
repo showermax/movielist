@@ -9,11 +9,11 @@ export type PropsType = {
     title: string
     removeFilms: (id: string) => void
     addFilm: (newFilm: MovieType, watchListId: string) => void
-   /* genre: string
-    setGenre: (genre: string) => void
-    genreFilter: (genre: string) => void*/
-    changeStatus: (id: string, watched: boolean) => void
-    //watchListId: string
+    /* genre: string
+     setGenre: (genre: string) => void
+     genreFilter: (genre: string) => void*/
+    changeStatus: (id: string, watched: boolean,  watchListId: string) => void
+    watchListId: string
 }
 
 export type MovieType = {
@@ -22,6 +22,7 @@ export type MovieType = {
     watched: boolean
     rating: number
     genre: string
+    parents: string
 }
 
 
@@ -43,7 +44,7 @@ export const Watchlist = (props: PropsType) => {
     });
 
     const checkBoxHandler = (id: string, check: boolean) => {
-        props.changeStatus(id, check)
+        props.changeStatus(id, check, props.watchListId)
     }
 
     return (
@@ -66,7 +67,7 @@ export const Watchlist = (props: PropsType) => {
                     )
                 })}
             </ul>
-           {/* <AddForm addFilm={props.addFilm} watchListId={props.watchListId}/>*/}
+            {props.watchListId !=='idList3' && <AddForm addFilm={props.addFilm} watchListId={props.watchListId}/>}
         </div>
     );
 };

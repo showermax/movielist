@@ -15,15 +15,6 @@ type WatchListType = {
 //Проверка ГИТХАБ
 function App() {
     const title: string = 'Best movies'
-    /* const [movies, setMovies] = useState<Array<MovieType>>([
-         {id: v1(), name: 'The Shawshank Redemption', watchedFilms: false, rating: 93, genre: "Drama"},
-         {id: v1(), name: 'The Godfather', watchedFilms: false, rating: 92, genre: "Crime"},
-         {id: v1(), name: 'The Dark Knight', watchedFilms: false, rating: 91, genre: "Action"},
-         {id: v1(), name: 'The Godfather Part II', watchedFilms: false, rating: 90, genre: "Crime"},
-         {id: v1(), name: 'Schindler\'s List', watchedFilms: false, rating: 89, genre: "Military"},
-         {id: v1(), name: 'The Lord of the Rings', watchedFilms: false, rating: 87, genre: "Fantasy"},
-         {id: v1(), name: 'Pulp Fiction', watchedFilms: false, rating: 89, genre: "Crime"}
-     ])*/
 
     const allFilms = 'idList1'
     const topRated = 'idList2'
@@ -31,21 +22,20 @@ function App() {
 
     const [movies, setMovies] = useState<MoviesType>({
         [allFilms]: [
-            {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama"},
-            {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime"},
-            {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action"},
-            {id: v1(), name: 'The Godfather Part II', watched: false, rating: 90, genre: "Crime"},
-            {id: v1(), name: 'Schindler\'s List', watched: false, rating: 89, genre: "Military"},
-            {id: v1(), name: 'The Lord of the Rings', watched: false, rating: 87, genre: "Fantasy"},
-            {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime"}
+            {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama", parents: allFilms},
+            {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: allFilms},
+            {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: allFilms},
+            {id: v1(), name: 'The Godfather Part II', watched: false, rating: 90, genre: "Crime", parents: allFilms},
+            {id: v1(), name: 'Schindler\'s List', watched: false, rating: 89, genre: "Military", parents: allFilms},
+            {id: v1(), name: 'The Lord of the Rings', watched: false, rating: 87, genre: "Fantasy", parents: allFilms},
+            {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime", parents: allFilms}
         ],
         [topRated]: [
-            {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama"},
-            {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime"},
-            {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action"},
+            {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama", parents: topRated},
+            {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: topRated},
+            {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: topRated},
         ],
         [watchedFilms]: [
-            {id: v1(), name: 'The Shawshank Redemption', watched: true, rating: 93, genre: "Drama"},
         ]
     })
 
@@ -55,19 +45,28 @@ function App() {
         {id: watchedFilms, title: 'Watched Movies'}
     ])
 
-
-    const changeStatus = (id: string, watched: boolean, watchListId: string) => {
+    const changeStatus = (id: string, check: boolean, watchListId: string) => {
+        const parentsId = movies[watchListId].filter(el=> el.id===id)[0].parents
         if (watchListId !== watchedFilms) {
             setMovies({
                 ...movies,
-                //[watchListId]: movies[watchListId].map(el => el.id !== id ? el : {...el, watched: watched}),
-                [watchedFilms]: [...movies[watchedFilms],
-                    {...movies[watchListId].filter(el => el.id === id)[0], watched: watched}],
-                [watchListId]: movies[watchListId].filter(el => el.id !== id)
-
+                [watchListId]: movies[watchListId].filter(el => el.id !== id),
+                [watchedFilms]: [...movies[watchedFilms], {
+                    ...movies[watchListId].filter(el => el.id === id)[0],
+                    watched: check
+                }]
             })
+        } else {
+            setMovies({
+                    ...movies,
+                    [watchListId]: movies[watchListId].filter(f => f.id !== id),
+                    [parentsId]: [...movies[parentsId],
+                        ...movies[watchListId].filter(f => f.id === id).map(el => ({...el,
+                        watched: false
+                    }))]
+                }
+            )
         }
-
     }
 
     function removeFilms(id: string, watchListId: string) {
@@ -87,7 +86,7 @@ function App() {
                         return (
                             <Watchlist
                                 key={el.id}
-                                // watchListId={el.id}
+                                watchListId={el.id}
                                 movies={movies[el.id]}
                                 title={el.title}
                                 removeFilms={(id) => removeFilms(id, el.id)}
@@ -95,7 +94,7 @@ function App() {
                                 /* genreFilter={genreFilter}
                                  setGenre={setGenre}
                                  genre={genre}*/
-                                changeStatus={(id, check)=>changeStatus(id, check, el.id)}
+                                changeStatus={changeStatus}
                             />
                         )
                     }

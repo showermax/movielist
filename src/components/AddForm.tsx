@@ -13,7 +13,7 @@ type PropsType = {
 export const AddForm: React.FC<PropsType> = ({watchListId, addFilm}) => {
 
     const [newFilm, setNewFilm] = useState<MovieType>(
-        {id: v1(), name: "", watched: false, rating: NaN, genre: ""}
+        {id: v1(), name: "", watched: false, rating: NaN, genre: "", parents: watchListId}
     )
     const [addForm, setAddForm] = useState<boolean>(false)
     // const [text, setText] = useState<string>("")
@@ -25,7 +25,7 @@ export const AddForm: React.FC<PropsType> = ({watchListId, addFilm}) => {
 
     const addFilmHandler = () => {
         addFilm(newFilm, watchListId)
-        setNewFilm({id: v1(), name: "", watched: false, rating: NaN, genre: ""})
+        setNewFilm({id: v1(), name: "", watched: false, rating: NaN, genre: "", parents: watchListId})
     }
 
     if (newFilm.rating > 100 || newFilm.rating < 0) {
