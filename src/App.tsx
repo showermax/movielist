@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import './App.css';
 import {v1} from "uuid";
 import {MovieType, Watchlist} from "./components/Watchlist";
+import {Navbar} from "./components/Navbar";
+import {Route, Routes, Navigate} from "react-router-dom";
 
 
 type MoviesType = {
     [key: string]: MovieType[]
 }
-type WatchListType = {
+export type WatchListType = {
     id: string
     title: string
 }
@@ -35,8 +37,7 @@ function App() {
             {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: topRated},
             {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: topRated},
         ],
-        [watchedFilms]: [
-        ]
+        [watchedFilms]: []
     })
 
     const [watchList, setWatchlist] = useState<WatchListType[]>([
@@ -45,8 +46,15 @@ function App() {
         {id: watchedFilms, title: 'Watched Movies'}
     ])
 
+    const addWatchList = () => {
+        const newId = v1();
+        setWatchlist([ {id: newId, title: "newList"},...watchList])
+        setMovies({...movies, [newId] :[] })
+
+    }
+
     const changeStatus = (id: string, check: boolean, watchListId: string) => {
-        const parentsId = movies[watchListId].filter(el=> el.id===id)[0].parents
+        const parentsId = movies[watchListId].filter(el => el.id === id)[0].parents
         if (watchListId !== watchedFilms) {
             setMovies({
                 ...movies,
@@ -61,9 +69,10 @@ function App() {
                     ...movies,
                     [watchListId]: movies[watchListId].filter(f => f.id !== id),
                     [parentsId]: [...movies[parentsId],
-                        ...movies[watchListId].filter(f => f.id === id).map(el => ({...el,
-                        watched: false
-                    }))]
+                        ...movies[watchListId].filter(f => f.id === id).map(el => ({
+                            ...el,
+                            watched: false
+                        }))]
                 }
             )
         }
@@ -80,27 +89,41 @@ function App() {
     //const filteredMovies = movies.filter((m) => genre === "All" ? m : m.genre.toLowerCase() === genre.toLowerCase())
 
     return (
-        <header className="App">
+        <div className="App">
+            <header className={"App-header"}>
+                <Navbar
+                    addWatchList={addWatchList}
+                    watchList={watchList}
+                />
+            </header>
             <div className={'list'}>
-                {watchList.map(el => {
-                        return (
-                            <Watchlist
-                                key={el.id}
-                                watchListId={el.id}
-                                movies={movies[el.id]}
-                                title={el.title}
-                                removeFilms={(id) => removeFilms(id, el.id)}
-                                addFilm={addFilm}
-                                /* genreFilter={genreFilter}
-                                 setGenre={setGenre}
-                                 genre={genre}*/
-                                changeStatus={changeStatus}
-                            />
-                        )
-                    }
-                )}
+                <Routes>
+
+                    {watchList.map(el => {
+                            return (
+                                <Route path={el.id} element={
+                                    <Watchlist
+                                        key={el.id}
+                                        watchListId={el.id}
+                                        movies={movies[el.id]}
+                                        title={el.title}
+                                        removeFilms={(id) => removeFilms(id, el.id)}
+                                        addFilm={addFilm}
+                                        /* genreFilter={genreFilter}
+                                         setGenre={setGenre}
+                                         genre={genre}*/
+                                        changeStatus={changeStatus}
+                                    />
+                                }
+                                />
+                            )
+                        }
+                    )}
+                    <Route path={'/*'} element ={<Navigate to={allFilms}/>}/>
+
+                </Routes>
             </div>
-        </header>
+        </div>
     );
 }
 
