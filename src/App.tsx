@@ -48,7 +48,7 @@ function App() {
 
     const addWatchList = () => {
         const newId = v1();
-        setWatchlist([ {id: newId, title: "newList"},...watchList])
+        setWatchlist([ ...watchList, {id: newId, title: "newList"}])
         setMovies({...movies, [newId] :[] })
 
     }

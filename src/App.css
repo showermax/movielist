@@ -1,14 +1,18 @@
 .App {
   text-align: left;
+  display:flex;
+  flex-direction: column;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100px;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 10px;
 }
-
+.main1 {
+  display:flex;
+}
 .App-link {
   color: #61dafb;
 }
@@ -28,19 +32,37 @@
   border: 1px solid rgba(0, 0, 255, .2);
 }
 
-a:active,
+.navbar {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
 a {
-  padding: 10px;
   text-decoration: none;
   color: inherit;
 }
-a:hover
+.navItem:active,
+.navItem {
+  padding: 10px;
+}
+.navItem:hover
 {
-  background-color: grey ;
+  background-color: #484646;
   border-radius: 5px;
   transition: .3s ease all;
 }
 .active {
-  color: green;
+  color: grey;
 }
+.navItem button {
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  border: inherit;
+  font-style: italic;
+
+}
+
 
