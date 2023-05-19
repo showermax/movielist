@@ -85,7 +85,7 @@ function App() {
     const addFilm = (newFilm: MovieType, watchListId: string) => {
         setMovies({...movies, [watchListId]: [newFilm, ...movies[watchListId]]})
     }
-
+    // Пуш
     //const filteredMovies = movies.filter((m) => genre === "All" ? m : m.genre.toLowerCase() === genre.toLowerCase())
 
     return (
