@@ -4,7 +4,7 @@ import {v1} from "uuid";
 import {MovieType, Watchlist} from "./components/Watchlist";
 import {Navbar} from "./components/Navbar";
 import {Route, Routes, Navigate, useNavigate} from "react-router-dom";
-import {addFilmAC, movieReducer} from "./reducers/movieReducer";
+import {addFilmAC, changeStatusAC, movieReducer, removeFilmsAC} from "./reducers/movieReducer";
 import {addWatchListAC, watchListReducer} from "./reducers/watchListReducer";
 
 
@@ -43,24 +43,6 @@ function App() {
         [watchedFilms]: []
     })
 
-    /* const [movies, setMovies] = useState<MoviesType>({
-         [allFilms]: [
-             {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama", parents: allFilms},
-             {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: allFilms},
-             {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: allFilms},
-             {id: v1(), name: 'The Godfather Part II', watched: false, rating: 90, genre: "Crime", parents: allFilms},
-             {id: v1(), name: 'Schindler\'s List', watched: false, rating: 89, genre: "Military", parents: allFilms},
-             {id: v1(), name: 'The Lord of the Rings', watched: false, rating: 87, genre: "Fantasy", parents: allFilms},
-             {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime", parents: allFilms}
-         ],
-         [topRated]: [
-             {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama", parents: topRated},
-             {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: topRated},
-             {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: topRated},
-         ],
-         [watchedFilms]: []
-     })*/
-
     const [watchList, dispatchWatchList] = useReducer ( watchListReducer,[
         {id: allFilms, title: 'Movies'},
         {id: topRated, title: 'Top Rated Movies'},
@@ -69,8 +51,6 @@ function App() {
 
     const addWatchList = () => {
         const newId = v1();
-        // setWatchlist([...watchList, {id: newId, title: "newList"}])
-        // setMovies({...movies, [newId]: []})
         navigate(newId)
         dispatchWatchList(addWatchListAC(newId))
         dispatchMovies(addWatchListAC(newId))
@@ -99,10 +79,12 @@ function App() {
                 }
             )
         }*/
+        dispatchMovies(changeStatusAC(id,check,watchListId, watchedFilms))
+
     }
 
     function removeFilms(id: string, watchListId: string) {
-       /* setMovies({...movies, [watchListId]: movies[watchListId].filter(el => el.id !== id)})*/
+        dispatchMovies(removeFilmsAC(id, watchListId))
     }
 
     const addFilm = (newFilm: MovieType, watchListId: string) => {
