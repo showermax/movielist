@@ -6,6 +6,9 @@ import {Navbar} from "./components/Navbar";
 import {Route, Routes, Navigate, useNavigate} from "react-router-dom";
 import {addFilmAC, changeStatusAC, movieReducer, removeFilmsAC} from "./reducers/movieReducer";
 import {addWatchListAC, watchListReducer} from "./reducers/watchListReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./store/store";
+import {Dispatch} from "redux";
 
 
 export type MoviesType = {
@@ -18,6 +21,9 @@ export type WatchListType = {
 
 //Проверка ГИТХАБ
 function App() {
+    const watchList = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
+    const dispatch: Dispatch = useDispatch()
+
     const title: string = 'Best movies'
 
     const navigate = useNavigate();
@@ -43,16 +49,16 @@ function App() {
         [watchedFilms]: []
     })
 
-    const [watchList, dispatchWatchList] = useReducer ( watchListReducer,[
+ /*   const [watchList, dispatchWatchList] = useReducer ( watchListReducer,[
         {id: allFilms, title: 'Movies'},
         {id: topRated, title: 'Top Rated Movies'},
         {id: watchedFilms, title: 'Watched Movies'}
-    ])
+    ])*/
 
     const addWatchList = () => {
         const newId = v1();
         navigate(newId)
-        dispatchWatchList(addWatchListAC(newId))
+        //dispatchWatchList(addWatchListAC(newId))
         dispatchMovies(addWatchListAC(newId))
     }
 
