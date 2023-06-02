@@ -1,8 +1,29 @@
 import {MovieType} from "../components/Watchlist";
+import {AddWatchListACType, allFilms, topRated, watchedFilms} from "./watchListReducer";
+import {v1} from "uuid";
 import {MoviesType} from "../App";
-import {AddWatchListACType} from "./watchListReducer";
 
-export const movieReducer = (state: MoviesType, action: ActionsType): MoviesType => {
+
+
+const initialState = {
+    [allFilms]: [
+        {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama", parents: allFilms},
+        {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: allFilms},
+        {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: allFilms},
+        {id: v1(), name: 'The Godfather Part II', watched: false, rating: 90, genre: "Crime", parents: allFilms},
+        {id: v1(), name: 'Schindler\'s List', watched: false, rating: 89, genre: "Military", parents: allFilms},
+        {id: v1(), name: 'The Lord of the Rings', watched: false, rating: 87, genre: "Fantasy", parents: allFilms},
+        {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime", parents: allFilms}
+    ],
+    [topRated]: [
+        {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama", parents: topRated},
+        {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: topRated},
+        {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: topRated},
+    ],
+    [watchedFilms]: []
+}
+
+export const movieReducer = (state: MoviesType = initialState, action: ActionsType): MoviesType => {
     switch (action.type) {
         case "ADD-FILM": {
             return {
@@ -86,7 +107,6 @@ export const changeStatusAC = (id: string, check: boolean, watchListId: string, 
             check,
             watchListId,
             watchedFilms
-
         }
     } as const
 }

@@ -3,16 +3,22 @@ import {AddForm} from "./AddForm";
 import {FilterGenre} from "./FilterGenre";
 import {SuperButton} from "./SuperButton";
 import {SuperCheckBox} from "./SuperCheckBox";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../store/store";
+import {MoviesType} from "../App";
+import {Dispatch} from "redux";
+import {addFilmAC, changeStatusAC, removeFilmsAC} from "../reducers/movieReducer";
+import {watchedFilms} from "../reducers/watchListReducer";
 
 export type PropsType = {
-    movies: MovieType[]
+
     title: string
-    removeFilms: (id: string) => void
-    addFilm: (newFilm: MovieType, watchListId: string) => void
+
+
     /* genre: string
      setGenre: (genre: string) => void
      genreFilter: (genre: string) => void*/
-    changeStatus: (id: string, watched: boolean,  watchListId: string) => void
+    //changeStatus: (id: string, watched: boolean,  watchListId: string) => void
     watchListId: string
 }
 
@@ -25,17 +31,28 @@ export type MovieType = {
     parents: string
 }
 
-
 export const Watchlist = (props: PropsType) => {
+
+    const movies = useSelector<AppRootStateType, MovieType[] >(state => state.movies[props.watchListId])
+
+    const dispatch: Dispatch = useDispatch()
+
+    const changeStatus = (id: string, check: boolean, watchListId: string) =>{
+        dispatch(changeStatusAC(id,check,watchListId, watchedFilms))
+    }
+    function removeFilmsHandler(id: string) {
+        dispatch(removeFilmsAC(id, props.watchListId))
+    }
+    const addFilm = (newFilm: MovieType, watchListId: string) => {
+        dispatch(addFilmAC(newFilm, watchListId))
+    }
+
     const [genre, setGenre] = useState("All");
     const genreFilter = (genre: string) => {
         setGenre(genre)
     }
 
-    const removeFilmsHandler = (id: string) => {
-        props.removeFilms(id)
-    }
-    const filteredMovies = props.movies.filter((movie) => {
+    const filteredMovies = movies.filter((movie) => {
         if (genre === "All") {
             return true;
         } else {
@@ -44,7 +61,7 @@ export const Watchlist = (props: PropsType) => {
     });
 
     const checkBoxHandler = (id: string, check: boolean) => {
-        props.changeStatus(id, check, props.watchListId)
+        changeStatus(id, check, props.watchListId)
     }
 
     return (
@@ -53,9 +70,6 @@ export const Watchlist = (props: PropsType) => {
             <FilterGenre genre={genre} genreFilter={genreFilter}/>
             <ul style={{padding: "0"}}>
                 {filteredMovies.map((el) => {
-                    // const checkBoxHandler = (check:boolean)=>{
-                    //     props.changeStatus(el.id, check)
-                    // }
                     return (
                         <li key={el.id} style={{listStyleType: "none"}}>
                             <SuperButton name={'del'} onClickCallBack={() => removeFilmsHandler(el.id)}/>
@@ -63,11 +77,10 @@ export const Watchlist = (props: PropsType) => {
                             <SuperCheckBox callBack={(check) => checkBoxHandler(el.id, check)} checked={el.watched}/>
                             {`${el.name}: ${el.rating}`}
                         </li>
-
                     )
                 })}
             </ul>
-            {props.watchListId !=='idList3' && <AddForm addFilm={props.addFilm} watchListId={props.watchListId}/>}
+            {props.watchListId !=='idList3' && <AddForm addFilm={addFilm} watchListId={props.watchListId}/>}
         </div>
     );
 };

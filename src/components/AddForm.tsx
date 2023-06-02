@@ -34,7 +34,6 @@ export const AddForm: React.FC<PropsType> = ({watchListId, addFilm}) => {
     const onChangeSelectHandler = (e:ChangeEvent<HTMLSelectElement>)=>{
         setNewFilm({...newFilm, genre: e.currentTarget.value})
 
-
     }
 
     return (
