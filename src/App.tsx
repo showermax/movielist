@@ -22,6 +22,7 @@ export type WatchListType = {
 
 //Проверка ГИТХАБ
 function App() {
+    console.log("APP")
     const watchLists = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
 
     const dispatch: Dispatch = useDispatch()
@@ -45,9 +46,8 @@ function App() {
                 <Routes>
                     {watchLists.map(el => {
                             return (
-                                <Route path={el.id} element={
+                                <Route key={el.id} path={el.id} element={
                                     <Watchlist
-                                        key={el.id}
                                         watchListId={el.id}
                                         title={el.title}
                                         /* genreFilter={genreFilter}

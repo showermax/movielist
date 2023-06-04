@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {ChangeEvent, FC, memo} from 'react';
 import {MovieType} from "./Watchlist";
 
 
@@ -11,7 +11,8 @@ type SuperInputType ={
     property: string
 }
 
-export const SuperInput: FC<SuperInputType> = (props) => {
+export const SuperInput: FC<SuperInputType> = memo((props) => {
+    console.log("SuperInput")
 const  {value,type,newFilm,setNewFilm,property } = props
     const onchangeHandler =(e: ChangeEvent<HTMLInputElement>)=> {
         setNewFilm(type==='number'
@@ -23,4 +24,4 @@ const  {value,type,newFilm,setNewFilm,property } = props
             <input value={value} type={type} onChange={onchangeHandler}/>
         </div>
     );
-};
+});

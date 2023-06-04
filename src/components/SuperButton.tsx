@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {memo} from 'react';
  type PropsType ={
      name: string
      onClickCallBack: ()=>void
      disabled?: boolean
  }
 
-export const SuperButton = (props: PropsType) => {
-
+export const SuperButton = memo((props: PropsType) => {
+    console.log("SUPER BUTTON" + " " + props.name)
     const onClickHandler = () =>{
         props.onClickCallBack()
     }
@@ -16,5 +16,5 @@ export const SuperButton = (props: PropsType) => {
             {props.name}
         </button>
     );
-};
+});
 

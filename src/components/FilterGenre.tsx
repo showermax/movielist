@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 type PropsType = {
         genre: string
         genreFilter: (genre: string) => void
     }
-export const FilterGenre = (props: PropsType) => {
+export const FilterGenre = memo((props: PropsType) => {
+    console.log("FILTER")
     return (
         <div>
             <select name={"movies"} onChange={(e) => props.genreFilter(e.currentTarget.value)}>
@@ -18,5 +19,5 @@ export const FilterGenre = (props: PropsType) => {
             <span>Selected genre: {props.genre}</span>
         </div>
     );
-};
+});
 
