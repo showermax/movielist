@@ -6,7 +6,7 @@ import React, {memo} from 'react';
  }
 
 export const SuperButton = memo((props: PropsType) => {
-    console.log("SUPER BUTTON" + " " + props.name)
+
     const onClickHandler = () =>{
         props.onClickCallBack()
     }
@@ -16,5 +16,5 @@ export const SuperButton = memo((props: PropsType) => {
             {props.name}
         </button>
     );
-});
+})
 

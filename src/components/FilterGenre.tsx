@@ -5,7 +5,6 @@ type PropsType = {
         genreFilter: (genre: string) => void
     }
 export const FilterGenre = memo((props: PropsType) => {
-    console.log("FILTER")
     return (
         <div>
             <select name={"movies"} onChange={(e) => props.genreFilter(e.currentTarget.value)}>
@@ -19,5 +18,5 @@ export const FilterGenre = memo((props: PropsType) => {
             <span>Selected genre: {props.genre}</span>
         </div>
     );
-});
+})
 

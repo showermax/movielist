@@ -1,8 +1,7 @@
 import {MovieType} from "../components/Watchlist";
-import {AddWatchListACType, allFilms, topRated, watchedFilms} from "./watchListReducer";
+import {AddWatchListACType, allFilms, RemoveWatchListAC, topRated, watchedFilms} from "./watchListReducer";
 import {v1} from "uuid";
 import {MoviesType} from "../App";
-
 
 
 const initialState = {
@@ -34,6 +33,11 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
         }
         case "ADD-WATCH-LIST" : {
             return {...state, [action.payload.id]: []}
+        }
+
+        case 'REMOVE-WATCH-LIST': {
+            delete state[action.payload.id]
+            return state
         }
         case "REMOVE-FILMS": {
             return {
@@ -72,7 +76,7 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
     }
 }
 
-type ActionsType = AddFilmACType | AddWatchListACType | RemoveFilmsACType | ChangeStatusACType
+type ActionsType = AddFilmACType | AddWatchListACType | RemoveFilmsACType | ChangeStatusACType | RemoveWatchListAC
 
 type AddFilmACType = ReturnType<typeof addFilmAC>
 export const addFilmAC = (newFilm: MovieType, watchListId: string) => {

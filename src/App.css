@@ -65,4 +65,9 @@ a {
 
 }
 
+.watchListHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
 

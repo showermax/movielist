@@ -18,12 +18,18 @@ export const watchListReducer = (state: WatchListType[] = initialState, action: 
             // setMovies({...movies, [newId]: []})
             return [...state, {id: action.payload.id, title: "newList"}]
         }
+        case "REMOVE-WATCH-LIST":{
+            return state.filter(list=> list.id !== action.payload.id)
+        }
+        case "CHANGE_TITLE": {
+            return state.map(list=> list.id === action.payload.watchListId ? {...list, title: action.payload.newTitle} : list)
+        }
         default:
             return state
     }
 }
 
-type ActionTypes = AddWatchListACType
+type ActionTypes = AddWatchListACType | RemoveWatchListAC | ChangeTitleACType
 
 export type AddWatchListACType = ReturnType<typeof addWatchListAC>
 export const addWatchListAC = (id: string) => {
@@ -33,4 +39,26 @@ export const addWatchListAC = (id: string) => {
             id
         }
     } as const
+}
+
+export type RemoveWatchListAC = ReturnType<typeof removeWatchListAC>
+
+export const removeWatchListAC = (id: string) => {
+    return {
+        type: 'REMOVE-WATCH-LIST',
+        payload: {
+            id
+        }
+    } as const
+}
+
+export type ChangeTitleACType = ReturnType<typeof changeTitleAC>
+export const changeTitleAC = (watchListId: string, newTitle:string)=>{
+    return{
+        type: 'CHANGE_TITLE',
+        payload:{
+            watchListId,
+            newTitle
+        }
+    }as const
 }

@@ -12,7 +12,6 @@ type SuperInputType ={
 }
 
 export const SuperInput: FC<SuperInputType> = memo((props) => {
-    console.log("SuperInput")
 const  {value,type,newFilm,setNewFilm,property } = props
     const onchangeHandler =(e: ChangeEvent<HTMLInputElement>)=> {
         setNewFilm(type==='number'
@@ -24,4 +23,4 @@ const  {value,type,newFilm,setNewFilm,property } = props
             <input value={value} type={type} onChange={onchangeHandler}/>
         </div>
     );
-});
+})

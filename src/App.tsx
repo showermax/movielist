@@ -50,16 +50,13 @@ function App() {
                                     <Watchlist
                                         watchListId={el.id}
                                         title={el.title}
-                                        /* genreFilter={genreFilter}
-                                         setGenre={setGenre}
-                                         genre={genre}*/
                                     />
                                 }
                                 />
                             )
                         }
                     )}
-                    <Route path={'/*'} element={<Navigate to={allFilms}/>}/>
+                    <Route path={'/*'} element={<Navigate to={watchLists.length ? watchLists[0].id : allFilms}/>}/>
 
                 </Routes>
             </div>
