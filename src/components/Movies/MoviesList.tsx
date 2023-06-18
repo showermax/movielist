@@ -27,6 +27,9 @@ export const MoviesList: FC<PropsType> = (
         }
     });
 
+    // const onSorted = () => filteredMovies.sort ((a,b) => a.name.localeCompare(b.name) )
+
+
 
 
 

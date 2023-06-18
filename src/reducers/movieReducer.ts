@@ -2,6 +2,7 @@ import {MovieType} from "../components/Watchlist";
 import {AddWatchListACType, allFilms, RemoveWatchListAC, topRated, watchedFilms} from "./watchListReducer";
 import {v1} from "uuid";
 import {MoviesType} from "../App";
+import {useReducer} from "react";
 
 
 const initialState = {
@@ -71,12 +72,19 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
 
             }
         }
+        case "SORTED_NAME":{
+            return {
+                ...state,
+                [action.payload.watchListId]: [...state[action.payload.watchListId].sort ((a,b) => a.name.localeCompare(b.name) )]
+                // state.sort ((a,b) => a.name.localeCompare(b.name) )
+            }
+        }
         default:
             return state
     }
 }
 
-type ActionsType = AddFilmACType | AddWatchListACType | RemoveFilmsACType | ChangeStatusACType | RemoveWatchListAC
+type ActionsType = AddFilmACType | AddWatchListACType | RemoveFilmsACType | ChangeStatusACType | RemoveWatchListAC | SortedNameAC
 
 type AddFilmACType = ReturnType<typeof addFilmAC>
 export const addFilmAC = (newFilm: MovieType, watchListId: string) => {
@@ -111,6 +119,16 @@ export const changeStatusAC = (id: string, check: boolean, watchListId: string, 
             check,
             watchListId,
             watchedFilms
+        }
+    } as const
+}
+
+type SortedNameAC = ReturnType<typeof sortedNameAC>
+export const sortedNameAC = (watchListId:string) => {
+    return{
+        type: 'SORTED_NAME',
+        payload:{
+            watchListId
         }
     } as const
 }
