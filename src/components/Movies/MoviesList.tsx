@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
-import {MovieType} from "../Watchlist";
+import {MovieType} from "../Watchlist/Watchlist";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import { Movie } from './Movie';
+import styles from './MoviesList.module.scss';
 
 
 type PropsType = {
@@ -34,7 +35,7 @@ export const MoviesList: FC<PropsType> = (
 
 
     return (
-        <ul style={{padding: "0"}}>
+        <ul className={styles.blocks}>
             {filteredMovies.map((el) => {
                 return (
                     <Movie key={el.id} movieId={el.id} watchListId={watchListId}/>

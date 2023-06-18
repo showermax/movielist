@@ -1,8 +1,10 @@
 import React, {memo} from 'react';
+
  type PropsType ={
      name: string
      onClickCallBack: ()=>void
      disabled?: boolean
+     styles?: string
  }
 
 export const SuperButton = memo((props: PropsType) => {
@@ -12,7 +14,7 @@ export const SuperButton = memo((props: PropsType) => {
     }
 
     return (
-        <button onClick={onClickHandler} disabled={props.disabled}>
+        <button className={props.styles} onClick={onClickHandler} disabled={props.disabled}>
             {props.name}
         </button>
     );

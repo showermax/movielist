@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, memo} from 'react';
-import {MovieType} from "./Watchlist";
+import {MovieType} from "./Watchlist/Watchlist";
 
 
 

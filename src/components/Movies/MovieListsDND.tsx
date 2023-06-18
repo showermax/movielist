@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {MovieType} from "../Watchlist";
+import {MovieType} from "../Watchlist/Watchlist";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import { Movie } from './Movie';

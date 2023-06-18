@@ -1,13 +1,14 @@
 import React, {memo, useState} from 'react';
-import {AddForm} from "./AddForm";
-import {FilterGenre} from "./FilterGenre";
-import {MoviesList} from "./Movies/MoviesList";
-import {SuperButton} from "./SuperButton";
+import {AddForm} from "../AddForm";
+import {FilterGenre} from "../FilterGenre";
+import {MoviesList} from "../Movies/MoviesList";
+import {SuperButton} from "../SuperButton";
 import {useDispatch} from "react-redux";
-import {allFilms, changeTitleAC, removeWatchListAC} from "../reducers/watchListReducer";
-import {EditableSpan} from "./EditableSpan";
-import {sortedNameAC} from "../reducers/movieReducer";
-import {MoviesListDND} from "./Movies/MovieListsDND";
+import {allFilms, changeTitleAC, removeWatchListAC} from "../../reducers/watchListReducer";
+import {EditableSpan} from "../EditableSpan";
+import {sortedNameAC} from "../../reducers/movieReducer";
+import {MoviesListDND} from "../Movies/MovieListsDND";
+import styles from './Watchlist.module.scss';
 
 export type PropsType = {
 
@@ -46,7 +47,7 @@ export const Watchlist = memo((props: PropsType) => {
     }
 
     return (
-        <div className={'main'}>
+        <div className={styles.main}>
             <div className={'watchListHeader'}>
                 {props.watchListId === allFilms
                     ? <h3>{props.title}</h3>
@@ -58,8 +59,8 @@ export const Watchlist = memo((props: PropsType) => {
             </div>
             <button onClick={onSorted}>❗</button>
             <FilterGenre genre={genre} genreFilter={genreFilter}/>
-            {/*<MoviesList watchListId={props.watchListId} genre={genre}/>*/}
-            <MoviesListDND watchListId={props.watchListId} genre={genre}/>
+            <MoviesList watchListId={props.watchListId} genre={genre}/>
+            {/*<MoviesListDND watchListId={props.watchListId} genre={genre}/>*/}
             {props.watchListId !== 'idList3' && <AddForm watchListId={props.watchListId}/>}
         </div>
     );

@@ -1,0 +1,16 @@
+:root {
+  --main-bg-color: #102942;
+}
+:root {
+  --text-white: #FFAD49;
+}
+
+.App {
+  background-color: var(--main-bg-color);
+}
+
+.list {
+  margin: 0 auto;
+  max-width: 1140px;
+}
+

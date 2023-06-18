@@ -1,7 +1,7 @@
 import React, {useReducer, useState} from 'react';
 import './App.css';
 
-import {MovieType, Watchlist} from "./components/Watchlist";
+import {MovieType, Watchlist} from "./components/Watchlist/Watchlist";
 import {Navbar} from "./components/Navbar";
 import {Route, Routes, Navigate, useNavigate} from "react-router-dom";
 import {addFilmAC, changeStatusAC, movieReducer, removeFilmsAC} from "./reducers/movieReducer";
@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
 import {Dispatch} from "redux";
 import {v1} from "uuid";
+import styles from './App.module.scss';
 
 export type MoviesType = {
     [key: string]: MovieType[]
@@ -35,14 +36,14 @@ function App() {
         dispatch(addWatchListAC(newId))
     }
     return (
-        <div className="App">
+        <div className={styles.App}>
             <header className={"App-header"}>
                 <Navbar
                     addWatchList={addWatchList}
                     watchList={watchLists}
                 />
             </header>
-            <div className={'list'}>
+            <div className={styles.list}>
                 <Routes>
                     {watchLists.map(el => {
                             return (

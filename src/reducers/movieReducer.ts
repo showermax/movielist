@@ -1,4 +1,4 @@
-import {MovieType} from "../components/Watchlist";
+import {MovieType} from "../components/Watchlist/Watchlist";
 import {AddWatchListACType, allFilms, RemoveWatchListAC, topRated, watchedFilms} from "./watchListReducer";
 import {v1} from "uuid";
 import {MoviesType} from "../App";
