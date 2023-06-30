@@ -1,8 +1,10 @@
 import React, {FC, useState} from 'react';
 import {MovieType} from "../Watchlist/Watchlist";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import { Movie } from './Movie';
+import styles from "./MoviesList.module.scss";
+import {sortDNDAC} from "../../reducers/movieReducer";
 
 
 type PropsType = {
@@ -17,9 +19,10 @@ export const MoviesListDND: FC<PropsType> = (
     }
 ) => {
     const movies = useSelector<AppRootStateType, MovieType[] >(state => state.movies[watchListId])
-    const moviesDND: MovieDNDType[]  = movies.map((el, index)=> ({...el, order: index+1}))
+    const dispatch = useDispatch()
+   /* const moviesDND: MovieDNDType[]  = movies.map((el, index)=> ({...el, order: index+1}))*/
 
-    const filteredMovies= moviesDND.filter((movie) => {
+    const filteredMovies= movies.filter((movie) => {
         if (genre === "All") {
             return true;
         } else {
@@ -28,12 +31,12 @@ export const MoviesListDND: FC<PropsType> = (
     });
 
     const [moviesListDND, setMoviesListDND] = useState<any>(filteredMovies)
-    const [currentMovie, setCurrentMovie] = useState<MovieDNDType | null>(null)
+    const [currentMovie, setCurrentMovie] = useState<MovieType | null>(null)
     const onSorted =()=>{
-        return moviesListDND.sort((a:MovieDNDType,b:MovieDNDType) => a.order - b.order)
+        return filteredMovies.sort((a,b) => a.order - b.order)
     }
 
-    const onDragHandler =(e:React.DragEvent<HTMLDivElement>, movie:MovieDNDType)=>{
+    const onDragHandler =(e:React.DragEvent<HTMLDivElement>, movie:MovieType)=>{
 
         setCurrentMovie(movie)
     }
@@ -44,7 +47,7 @@ export const MoviesListDND: FC<PropsType> = (
 
     const onDropHandler =(e:React.DragEvent<HTMLDivElement>, movie:MovieDNDType)=>{
         e.preventDefault()
-        setMoviesListDND(moviesListDND.map((m:MovieDNDType)=> {
+        const newArrMovies = filteredMovies.map((m:MovieDNDType)=> {
             if (currentMovie !== null){
                 if (m.id === movie.id) {
                     return {...m, order: currentMovie.order}
@@ -53,14 +56,17 @@ export const MoviesListDND: FC<PropsType> = (
                     return {...m, order: movie.order}
                 }
                 return m
+            } else {
+                return m
             }
-        }))
+        })
+        dispatch(sortDNDAC(watchListId, newArrMovies ))
     }
 
 
 
     return (
-        <ul style={{padding: "0"}}>
+        <ul className={styles.blocks}>
             {onSorted().map((el:MovieDNDType) => {
                 return (
                     <div draggable={true} onDragStart={(e)=>onDragHandler(e, el)}

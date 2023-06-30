@@ -1,48 +1,37 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 
 type PropsType = {
-    title: string
-    editContent: (newTitle: string) => void
+    title:string
+    editContent:(newTitle:string)=>void
 }
-export const EditableSpan: FC<PropsType> = (
+export const EditableSpan:FC<PropsType> = (
     {
         title,
         editContent
     }
 ) => {
     const [edit, setEdit] = useState(true)
-    const [newTitle, setNewTitle] = useState(title)
-    const [error, setError] = useState('')
+    const [newTitle, setNewTitle] = useState('')
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+
+    const onChangeHandler =(e:ChangeEvent<HTMLInputElement>)=>{
         setNewTitle(e.currentTarget.value)
-        if (newTitle.trim().length > 15) {
-            setError('Название слишком длинное')}
     }
 
-    const onEditHandler = () => {
-        if (newTitle.trim() === '') {
-            setError('Введите название')
-        } else {
-            editContent(newTitle)
-            setNewTitle('')
-            setEdit(!edit)
-            setError('')
-        }
+    const onEditHandler=()=>{
+        if (newTitle) { }
+        editContent(newTitle)
+        setNewTitle('')
+        setEdit(!edit)
     }
 
-    const doubleHandler = () => {
+    const doubleHandler = ()=>{
         setEdit(false)
     }
 
 
     return (
-        edit
-            ? <span onDoubleClick={doubleHandler}>{title}</span>
-            : <>
-                <input type="text" value={newTitle} onChange={onChangeHandler} onBlur={onEditHandler} autoFocus/>
-                {error && <span>{error}</span>}
-            </>
+            edit ? <span onDoubleClick={doubleHandler}>{title}</span> : <input type="text" value={newTitle} onChange={onChangeHandler} onBlur={onEditHandler} autoFocus/>
     );
 }
 

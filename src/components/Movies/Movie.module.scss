@@ -1,27 +1,24 @@
 .list {
-  position: relative;
   list-style-type: none;
+  position: relative;
 }
 .img {
   width: 100%;
-}
 
+}
 .btn {
   position: absolute;
-  top: 10px;
+  top:10px;
   right: 10px;
   cursor: pointer;
 }
-.rating {
+.rating{
   position: absolute;
-  top: 10px;
+  top:10px;
   left: 10px;
-  color: var(--text-white);
+  cursor: pointer;
+  color:white;
 }
-
-.name {
-  color: var(--text-white);
+.movie_name{
+  color:white;
 }
-
-
-

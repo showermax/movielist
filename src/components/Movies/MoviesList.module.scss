@@ -1,13 +1,11 @@
-.blocks {
-  padding: 0;
+.blocks{
+  padding:0;
   display: grid;
-  //grid-template-columns: repeat(4, 266px);
-  //grid-template-columns: repeat(4, minmax(370px, 400px));
   grid-template-columns: repeat(auto-fit, 266px);
   grid-template-rows: 430px;
   grid-auto-rows: 430px;
   column-gap: 24px;
   row-gap: 20px;
   justify-content: center;
+
 }
-//grid-template-columns: repeat(2,260px);

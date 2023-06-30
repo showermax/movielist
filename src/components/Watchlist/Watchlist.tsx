@@ -23,6 +23,7 @@ export type MovieType = {
     rating: number
     genre: string
     parents: string
+    order: number
 }
 
 export const Watchlist = memo((props: PropsType) => {
@@ -59,8 +60,8 @@ export const Watchlist = memo((props: PropsType) => {
             </div>
             <button onClick={onSorted}>❗</button>
             <FilterGenre genre={genre} genreFilter={genreFilter}/>
-            <MoviesList watchListId={props.watchListId} genre={genre}/>
-            {/*<MoviesListDND watchListId={props.watchListId} genre={genre}/>*/}
+            {/*<MoviesList watchListId={props.watchListId} genre={genre}/>*/}
+            <MoviesListDND watchListId={props.watchListId} genre={genre}/>
             {props.watchListId !== 'idList3' && <AddForm watchListId={props.watchListId}/>}
         </div>
     );

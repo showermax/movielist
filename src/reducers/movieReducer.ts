@@ -4,21 +4,72 @@ import {v1} from "uuid";
 import {MoviesType} from "../App";
 import {useReducer} from "react";
 
+/*description: required(string)
+title: required(string)
+completed: required(boolean)
+status: required(integer)
+priority: required(integer)
+startDate: required(datetime)
+deadline: required(datetime)
+id: required(string)
+todoListId: required(string)
+order: required(integer)
+addedDate: required(datetime)*/
 
 const initialState = {
     [allFilms]: [
-        {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama", parents: allFilms},
-        {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: allFilms},
-        {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: allFilms},
-        {id: v1(), name: 'The Godfather Part II', watched: false, rating: 90, genre: "Crime", parents: allFilms},
-        {id: v1(), name: 'Schindler\'s List', watched: false, rating: 89, genre: "Military", parents: allFilms},
-        {id: v1(), name: 'The Lord of the Rings', watched: false, rating: 87, genre: "Fantasy", parents: allFilms},
-        {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime", parents: allFilms}
+        {
+            id: v1(),
+            name: 'The Shawshank Redemption',
+            watched: false,
+            rating: 93,
+            genre: "Drama",
+            parents: allFilms,
+            order: 1
+        },
+        {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: allFilms, order: 2},
+        {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: allFilms, order: 3},
+        {
+            id: v1(),
+            name: 'The Godfather Part II',
+            watched: false,
+            rating: 90,
+            genre: "Crime",
+            parents: allFilms,
+            order: 4
+        },
+        {
+            id: v1(),
+            name: 'Schindler\'s List',
+            watched: false,
+            rating: 89,
+            genre: "Military",
+            parents: allFilms,
+            order: 5
+        },
+        {
+            id: v1(),
+            name: 'The Lord of the Rings',
+            watched: false,
+            rating: 87,
+            genre: "Fantasy",
+            parents: allFilms,
+            order: 6
+        },
+        {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime", parents: allFilms, order: 7}
     ],
     [topRated]: [
-        {id: v1(), name: 'The Shawshank Redemption', watched: false, rating: 93, genre: "Drama", parents: topRated},
-        {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: topRated},
-        {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: topRated},
+        {
+            id: v1(),
+            name: 'The Shawshank Redemption',
+            watched: false,
+            rating: 93,
+            genre: "Drama",
+            parents: topRated,
+            order: 1
+        },
+        {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: topRated, order: 2},
+        {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: topRated, order: 3},
     ],
     [watchedFilms]: []
 }
@@ -29,7 +80,7 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
             return {
                 ...state,
                 [action.payload.watchListId]:
-                    [action.payload.newFilm, ...state[action.payload.watchListId]]
+                    [...state[action.payload.watchListId], action.payload.newFilm]
             }
         }
         case "ADD-WATCH-LIST" : {
@@ -72,11 +123,17 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
 
             }
         }
-        case "SORTED_NAME":{
+        case "SORTED_NAME": {
             return {
                 ...state,
-                [action.payload.watchListId]: [...state[action.payload.watchListId].sort ((a,b) => a.name.localeCompare(b.name) )]
+                [action.payload.watchListId]: [...state[action.payload.watchListId].sort((a, b) => a.name.localeCompare(b.name))]
                 // state.sort ((a,b) => a.name.localeCompare(b.name) )
+            }
+        }
+        case "SORTED-DND":{
+            return {
+                ...state,
+                [action.payload.watchListId]: action.payload.moviesArr
             }
         }
         default:
@@ -84,7 +141,14 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
     }
 }
 
-type ActionsType = AddFilmACType | AddWatchListACType | RemoveFilmsACType | ChangeStatusACType | RemoveWatchListAC | SortedNameAC
+type ActionsType =
+    AddFilmACType
+    | AddWatchListACType
+    | RemoveFilmsACType
+    | ChangeStatusACType
+    | RemoveWatchListAC
+    | SortedNameAC
+    | SortDNDAC
 
 type AddFilmACType = ReturnType<typeof addFilmAC>
 export const addFilmAC = (newFilm: MovieType, watchListId: string) => {
@@ -124,12 +188,21 @@ export const changeStatusAC = (id: string, check: boolean, watchListId: string, 
 }
 
 type SortedNameAC = ReturnType<typeof sortedNameAC>
-export const sortedNameAC = (watchListId:string) => {
-    return{
+export const sortedNameAC = (watchListId: string) => {
+    return {
         type: 'SORTED_NAME',
-        payload:{
+        payload: {
             watchListId
         }
     } as const
 }
-
+type SortDNDAC = ReturnType<typeof sortDNDAC>
+export const sortDNDAC = (watchListId: string, moviesArr: MovieType[]) => {
+    return {
+        type: 'SORTED-DND',
+        payload: {
+            watchListId,
+            moviesArr
+        }
+    } as const
+}
