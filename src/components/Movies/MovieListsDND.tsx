@@ -37,7 +37,6 @@ export const MoviesListDND: FC<PropsType> = (
     }
 
     const onDragHandler =(e:React.DragEvent<HTMLDivElement>, movie:MovieType)=>{
-
         setCurrentMovie(movie)
     }
 
@@ -45,23 +44,39 @@ export const MoviesListDND: FC<PropsType> = (
         e.preventDefault()
     }
 
-    const onDropHandler =(e:React.DragEvent<HTMLDivElement>, movie:MovieDNDType)=>{
+    const onDropHandler = (e: React.DragEvent<HTMLDivElement>, movie: MovieDNDType) => {
         e.preventDefault()
-        const newArrMovies = filteredMovies.map((m:MovieDNDType)=> {
-            if (currentMovie !== null){
-                if (m.id === movie.id) {
-                    return {...m, order: currentMovie.order}
-                }
-                if (m.id === currentMovie.id) {
-                    return {...m, order: movie.order}
-                }
-                return m
-            } else {
-                return m
+        if (currentMovie !== null) {
+            if (currentMovie.order < movie.order) {
+                const newArrMovies = filteredMovies
+                    .map(m => (m.order < currentMovie.order || m.order > movie.order)
+                    ? m : m.id === currentMovie.id ? {...m, order: movie.order} : {...m, order: m.order - 1})
+                dispatch(sortDNDAC(watchListId, newArrMovies))
             }
-        })
-        dispatch(sortDNDAC(watchListId, newArrMovies ))
+            if (currentMovie.order > movie.order) {
+                const newArrMovies = filteredMovies
+                    .map(o => (o.order > currentMovie.order || o.order < movie.order)
+                    ? o : o.id === currentMovie.id ? {...o, order: movie.order} : {...o, order: o.order + 1})
+                dispatch(sortDNDAC(watchListId, newArrMovies))
+            }
+        }
     }
+
+        // const newArrMovies = filteredMovies.map((m:MovieDNDType)=> {
+        //     if (currentMovie !== null){
+        //         if (m.id === movie.id) {
+        //             return {...m, order: currentMovie.order}
+        //         }
+        //         if (m.id === currentMovie.id) {
+        //             return {...m, order: movie.order}
+        //         }
+        //         return m
+        //     } else {
+        //         return m
+        //     }
+        // })
+        // dispatch(sortDNDAC(watchListId, newArrMovies ))
+
 
 
 

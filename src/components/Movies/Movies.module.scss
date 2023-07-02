@@ -1,0 +1,10 @@
+.blocks {
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 26.6rem);
+  grid-template-rows: 43.0rem;
+  grid-auto-rows: 43.0rem;
+  column-gap: 2.4rem;
+  row-gap: 2rem;
+  justify-content: center;
+}

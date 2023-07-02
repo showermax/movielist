@@ -3,12 +3,14 @@ import {AddForm} from "../AddForm";
 import {FilterGenre} from "../FilterGenre";
 import {MoviesList} from "../Movies/MoviesList";
 import {SuperButton} from "../SuperButton";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {allFilms, changeTitleAC, removeWatchListAC} from "../../reducers/watchListReducer";
 import {EditableSpan} from "../EditableSpan";
 import {sortedNameAC} from "../../reducers/movieReducer";
 import {MoviesListDND} from "../Movies/MovieListsDND";
 import styles from './Watchlist.module.scss';
+import {getMoviesTC, ImdbMovieType} from "../../reducers/IMDBReducer";
+import {appDispatch, AppRootStateType} from "../../store/store";
 
 export type PropsType = {
 
@@ -27,7 +29,9 @@ export type MovieType = {
 }
 
 export const Watchlist = memo((props: PropsType) => {
-    const dispatch = useDispatch()
+    const state = useSelector<AppRootStateType, ImdbMovieType[]>(state => state.Imdb)
+    console.log(state)
+    const dispatch = useDispatch<appDispatch>()
 
     const [genre, setGenre] = useState("All");
     const genreFilter = (genre: string) => {
@@ -43,9 +47,13 @@ export const Watchlist = memo((props: PropsType) => {
         dispatch(changeTitleAC(props.watchListId, newTitle))
     }
 
-    const onSorted = ()=>{
-        dispatch(sortedNameAC(props.watchListId))
+    const getFilms = ()=>{
+        // debugger
+       getMoviesTC();
+
     }
+
+
 
     return (
         <div className={styles.main}>
@@ -58,7 +66,7 @@ export const Watchlist = memo((props: PropsType) => {
                     </>}
                 {/*{props.watchListId !== allFilms && <SuperButton name={'🗑️'} onClickCallBack={removeWatchList}/>}*/}
             </div>
-            <button onClick={onSorted}>❗</button>
+            <button onClick={getFilms}>❗</button>
             <FilterGenre genre={genre} genreFilter={genreFilter}/>
             {/*<MoviesList watchListId={props.watchListId} genre={genre}/>*/}
             <MoviesListDND watchListId={props.watchListId} genre={genre}/>
