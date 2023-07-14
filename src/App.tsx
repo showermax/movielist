@@ -1,14 +1,12 @@
-import React, {useReducer, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 
 import {MovieType, Watchlist} from "./components/Watchlist/Watchlist";
 import {Navbar} from "./components/Navbar";
-import {Route, Routes, Navigate, useNavigate} from "react-router-dom";
-import {addFilmAC, changeStatusAC, movieReducer, removeFilmsAC} from "./reducers/movieReducer";
-import {addWatchListAC, allFilms, watchedFilms, watchListReducer} from "./reducers/watchListReducer";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {addWatchListAC, allFilms, getWatchListsTC} from "./reducers/watchListReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./store/store";
-import {Dispatch} from "redux";
+import {appDispatch, AppRootStateType} from "./store/store";
 import {v1} from "uuid";
 import styles from './App.module.scss';
 
@@ -23,10 +21,14 @@ export type WatchListType = {
 
 //Проверка ГИТХАБ
 function App() {
-    console.log("APP")
-    const watchLists = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
+    const dispatch: appDispatch = useDispatch()
 
-    const dispatch: Dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(getWatchListsTC())
+    },[])
+    console.log("APP")
+
+    const watchLists = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
 
     const navigate = useNavigate();
 

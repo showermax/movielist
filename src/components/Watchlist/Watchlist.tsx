@@ -1,21 +1,22 @@
 import React, {memo, useState} from 'react';
 import {AddForm} from "../AddForm";
 import {FilterGenre} from "../FilterGenre";
-import {MoviesList} from "../Movies/MoviesList";
 import {SuperButton} from "../SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {allFilms, changeTitleAC, removeWatchListAC} from "../../reducers/watchListReducer";
 import {EditableSpan} from "../EditableSpan";
-import {sortedNameAC} from "../../reducers/movieReducer";
+import {addMovieTC} from "../../reducers/movieReducer";
 import {MoviesListDND} from "../Movies/MovieListsDND";
 import styles from './Watchlist.module.scss';
 import {getMoviesTC, ImdbMovieType} from "../../reducers/IMDBReducer";
 import {appDispatch, AppRootStateType} from "../../store/store";
+import {transformFilm} from "../../utils/transformFilm";
+import {apiMovie} from "../../api/Juliya-api";
 
 export type PropsType = {
 
     title: string
-    watchListId: string
+    watchListId: number
 }
 
 export type MovieType = {
@@ -24,8 +25,20 @@ export type MovieType = {
     watched: boolean
     rating: number
     genre: string
-    parents: string
+    parents: number
     order: number
+}
+
+export  type MoviePayloadType = {
+    watchListIds: Array<number>
+    name: string
+    watched: boolean
+    rating: number
+    description: string
+    releaseYear: string
+    duration: string
+    url: string
+    genreNames: Array<string>
 }
 
 export const Watchlist = memo((props: PropsType) => {
@@ -48,9 +61,20 @@ export const Watchlist = memo((props: PropsType) => {
     }
 
     const getFilms = ()=>{
-        // debugger
-       getMoviesTC();
+       dispatch(getMoviesTC());
 
+    }
+
+    const addFilmIMDB = () =>{
+        for (let i =0; i < state.length; i++){
+            dispatch(addMovieTC(transformFilm(state[i])))
+        }
+    }
+
+    const deleteAllFilms = () => {
+        for (let i = 30; i < 140; i++ ) {
+            apiMovie.deleteMovie(i)
+        }
     }
 
 
@@ -66,7 +90,9 @@ export const Watchlist = memo((props: PropsType) => {
                     </>}
                 {/*{props.watchListId !== allFilms && <SuperButton name={'🗑️'} onClickCallBack={removeWatchList}/>}*/}
             </div>
-            <button onClick={getFilms}>❗</button>
+            {/*<button onClick={getFilms}>Get 100 films from IMDB</button>*/}
+            {/*<button onClick={addFilmIMDB} >Save film</button>*/}
+            {/*<button onClick={deleteAllFilms}>Delete all films</button>*/}
             <FilterGenre genre={genre} genreFilter={genreFilter}/>
             {/*<MoviesList watchListId={props.watchListId} genre={genre}/>*/}
             <MoviesListDND watchListId={props.watchListId} genre={genre}/>
@@ -74,3 +100,11 @@ export const Watchlist = memo((props: PropsType) => {
         </div>
     );
 })
+
+
+// type MovieType = {
+//     name: string
+//     watchListId: number
+//     movieListId: number
+//
+// }

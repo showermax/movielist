@@ -11,7 +11,7 @@ import styles from './Movie.module.scss';
 import img from '../../img/dark_knight.jpg';
 
 type PropsType = {
-    watchListId: string,
+    watchListId: number,
     movieId: string
 }
 export const Movie: FC<PropsType> = memo((
@@ -24,7 +24,7 @@ export const Movie: FC<PropsType> = memo((
 
     const dispatch: Dispatch = useDispatch()
 
-    const changeStatus = (id: string, check: boolean, watchListId: string) =>{
+    const changeStatus = (id: string, check: boolean, watchListId: number) =>{
         dispatch(changeStatusAC(id,check,watchListId, watchedFilms))
     }
     const checkBoxHandler = (id: string, check: boolean) => {
@@ -34,7 +34,7 @@ export const Movie: FC<PropsType> = memo((
     function removeFilmsHandler(id: string) {
         dispatch(removeFilmsAC(id, watchListId))
     }
-    const addFilm = (newFilm: MovieType, watchListId: string) => {
+    const addFilm = (newFilm: MovieType, watchListId: number) => {
         dispatch(addFilmAC(newFilm, watchListId))
     }
 

@@ -1,7 +1,9 @@
-import {MovieType} from "../components/Watchlist/Watchlist";
+import {MoviePayloadType, MovieType} from "../components/Watchlist/Watchlist";
 import {AddWatchListACType, allFilms, RemoveWatchListAC, topRated, watchedFilms} from "./watchListReducer";
 import {v1} from "uuid";
 import {MoviesType} from "../App";
+import {Dispatch} from "redux";
+import {apiMovie} from "../api/Juliya-api";
 
 /*description: required(string)
 title: required(string)
@@ -150,7 +152,7 @@ type ActionsType =
     | SortDNDAC
 
 type AddFilmACType = ReturnType<typeof addFilmAC>
-export const addFilmAC = (newFilm: MovieType, watchListId: string) => {
+export const addFilmAC = (newFilm: MovieType, watchListId: number) => {
     return {
         type: "ADD-FILM",
         payload: {
@@ -162,7 +164,7 @@ export const addFilmAC = (newFilm: MovieType, watchListId: string) => {
 
 
 type RemoveFilmsACType = ReturnType<typeof removeFilmsAC>
-export const removeFilmsAC = (id: string, watchListId: string) => {
+export const removeFilmsAC = (id: string, watchListId: number) => {
     return {
         type: "REMOVE-FILMS",
         payload: {
@@ -174,7 +176,7 @@ export const removeFilmsAC = (id: string, watchListId: string) => {
 
 
 type ChangeStatusACType = ReturnType<typeof changeStatusAC>
-export const changeStatusAC = (id: string, check: boolean, watchListId: string, watchedFilms: string) => {
+export const changeStatusAC = (id: string, check: boolean, watchListId: number, watchedFilms: string) => {
     return {
         type: "CHANGE-STATUS",
         payload: {
@@ -187,7 +189,7 @@ export const changeStatusAC = (id: string, check: boolean, watchListId: string, 
 }
 
 type SortedNameAC = ReturnType<typeof sortedNameAC>
-export const sortedNameAC = (watchListId: string) => {
+export const sortedNameAC = (watchListId: number) => {
     return {
         type: 'SORTED_NAME',
         payload: {
@@ -196,7 +198,7 @@ export const sortedNameAC = (watchListId: string) => {
     } as const
 }
 type SortDNDAC = ReturnType<typeof sortDNDAC>
-export const sortDNDAC = (watchListId: string, moviesArr: MovieType[]) => {
+export const sortDNDAC = (watchListId: number, moviesArr: MovieType[]) => {
     return {
         type: 'SORTED-DND',
         payload: {
@@ -204,6 +206,16 @@ export const sortDNDAC = (watchListId: string, moviesArr: MovieType[]) => {
             moviesArr
         }
     } as const
+}
+
+export const addMovieTC = (data:MoviePayloadType) => async (dispatch:Dispatch)=>{
+    try {
+        const res = await apiMovie.addMovie(data)
+        console.log(res)
+
+    } catch (e) {
+
+    }
 }
 
 // export const getMovie

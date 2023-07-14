@@ -34,7 +34,6 @@ export const IMDBReducer = (state = initialState, action: GetMoviesACType) =>{
 
 type GetMoviesACType = ReturnType<typeof getMoviesAC>
 const getMoviesAC = (movies:any) =>{
-    // debugger
     return{
         type: "GET_MOVIES",
         payload: {
@@ -44,13 +43,11 @@ const getMoviesAC = (movies:any) =>{
 }
 
 export const getMoviesTC = () =>{
-    // debugger
     return async (dispatch: Dispatch)  => {
         try{
             const response = await getIMDB()
             dispatch(getMoviesAC(response.data))
         } catch (e) {
-            console.log(e)
         }
     }
 }

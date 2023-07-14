@@ -10,15 +10,13 @@ import {AppRootStateType} from "../store/store";
 
 
 type PropsType = {
-    watchListId: string
+    watchListId: number
 }
 export const AddForm: FC<PropsType> = memo(({watchListId}) => {
     const moviesArray = useSelector<AppRootStateType, MovieType[]>(state => state.movies[watchListId])
-    console.log(moviesArray)
     const newLastOrder = moviesArray.length > 0
         ? moviesArray[moviesArray.length-1].order +1
         : 1
-    console.log(newLastOrder)
     const dispatch = useDispatch()
     const [newFilm, setNewFilm] = useState<MovieType>(
         {id: v1(), name: "", watched: false, rating: NaN, genre: "", parents: watchListId, order: 0}

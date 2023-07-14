@@ -8,7 +8,7 @@ import {sortDNDAC} from "../../reducers/movieReducer";
 
 
 type PropsType = {
-    watchListId: string
+    watchListId: number
     genre: string
 }
 type MovieDNDType = MovieType & {order: number}
@@ -61,24 +61,6 @@ export const MoviesListDND: FC<PropsType> = (
             }
         }
     }
-
-        // const newArrMovies = filteredMovies.map((m:MovieDNDType)=> {
-        //     if (currentMovie !== null){
-        //         if (m.id === movie.id) {
-        //             return {...m, order: currentMovie.order}
-        //         }
-        //         if (m.id === currentMovie.id) {
-        //             return {...m, order: movie.order}
-        //         }
-        //         return m
-        //     } else {
-        //         return m
-        //     }
-        // })
-        // dispatch(sortDNDAC(watchListId, newArrMovies ))
-
-
-
 
     return (
         <ul className={styles.blocks}>
