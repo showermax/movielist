@@ -4,10 +4,9 @@ import './App.css';
 import {MovieType, Watchlist} from "./components/Watchlist/Watchlist";
 import {Navbar} from "./components/Navbar";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
-import {addWatchListAC, allFilms, getWatchListsTC} from "./reducers/watchListReducer";
+import {allFilms, getWatchListsTC} from "./reducers/watchListReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {appDispatch, AppRootStateType} from "./store/store";
-import {v1} from "uuid";
 import styles from './App.module.scss';
 
 export type MoviesType = {
@@ -15,7 +14,7 @@ export type MoviesType = {
 }
 
 export type WatchListType = {
-    id: string
+    id: number
     title: string
 }
 
@@ -33,9 +32,9 @@ function App() {
     const navigate = useNavigate();
 
     const addWatchList = () => {
-        const newId = v1();
-        navigate(newId)
-        dispatch(addWatchListAC(newId))
+        // const newId = v1();
+        // navigate(newId)
+        // dispatch(addWatchListAC(newId))
     }
     return (
         <div className={styles.App}>
@@ -49,7 +48,7 @@ function App() {
                 <Routes>
                     {watchLists.map(el => {
                             return (
-                                <Route key={el.id} path={el.id} element={
+                                <Route key={el.id} path={`${el.id}`} element={
                                     <Watchlist
                                         watchListId={el.id}
                                         title={el.title}
@@ -59,7 +58,7 @@ function App() {
                             )
                         }
                     )}
-                    <Route path={'/*'} element={<Navigate to={watchLists.length ? watchLists[0].id : allFilms}/>}/>
+                    <Route path={'/*'} element={<Navigate to={watchLists.length ? watchLists[0].id.toString() : allFilms.toString()}/>}/>
 
                 </Routes>
             </div>

@@ -19,14 +19,21 @@ export type PropsType = {
     watchListId: number
 }
 
+export type GenresType = {
+    name: string
+    id: number
+}
+
 export type MovieType = {
-    id: string
     name: string
     watched: boolean
     rating: number
-    genre: string
-    parents: number
-    order: number
+    description: string
+    releaseYear: string
+    duration: string
+    url: string
+    genres: Array<GenresType>
+    id: number
 }
 
 export  type MoviePayloadType = {
@@ -96,7 +103,7 @@ export const Watchlist = memo((props: PropsType) => {
             <FilterGenre genre={genre} genreFilter={genreFilter}/>
             {/*<MoviesList watchListId={props.watchListId} genre={genre}/>*/}
             <MoviesListDND watchListId={props.watchListId} genre={genre}/>
-            {props.watchListId !== 'idList3' && <AddForm watchListId={props.watchListId}/>}
+            {/*{props.watchListId !== 3 && <AddForm watchListId={props.watchListId}/>}*/}
         </div>
     );
 })

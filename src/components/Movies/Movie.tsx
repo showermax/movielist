@@ -12,7 +12,7 @@ import img from '../../img/dark_knight.jpg';
 
 type PropsType = {
     watchListId: number,
-    movieId: string
+    movieId: number
 }
 export const Movie: FC<PropsType> = memo((
     {
@@ -24,14 +24,14 @@ export const Movie: FC<PropsType> = memo((
 
     const dispatch: Dispatch = useDispatch()
 
-    const changeStatus = (id: string, check: boolean, watchListId: number) =>{
+    const changeStatus = (id: number, check: boolean, watchListId: number) =>{
         dispatch(changeStatusAC(id,check,watchListId, watchedFilms))
     }
-    const checkBoxHandler = (id: string, check: boolean) => {
+    const checkBoxHandler = (id: number, check: boolean) => {
         changeStatus(id, check, watchListId)
     }
 
-    function removeFilmsHandler(id: string) {
+    function removeFilmsHandler(id: number) {
         dispatch(removeFilmsAC(id, watchListId))
     }
     const addFilm = (newFilm: MovieType, watchListId: number) => {
@@ -41,7 +41,7 @@ export const Movie: FC<PropsType> = memo((
     return (
         <li className={styles.list}>
             <SuperButton styles={styles.btn} name={'del'} onClickCallBack={() => removeFilmsHandler(movie.id)}/>
-            <img src={img} alt={movie.name} className={styles.img}/>
+            <img src={movie.url} alt={movie.name} className={styles.img}/>
             {/*<input type={'checkbox'} onChange={checkBoxHandler} checked={el.watched}/>*/}
             <div>
                 <SuperCheckBox callBack={(check) => checkBoxHandler(movie.id, check)} checked={movie.watched}/>

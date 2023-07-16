@@ -1,6 +1,5 @@
 import axios from "axios";
 import {MoviePayloadType} from "../components/Watchlist/Watchlist";
-import retryTimes = jest.retryTimes;
 
 
 const instanse = axios.create({
@@ -14,8 +13,8 @@ export const apiMovie = {
     getMovie(id:number){
         return instanse.get(`movies/${id}`)
     },
-    getAllMovies(WatchListid:number){
-        return instanse.get(`movies/${WatchListid}`)
+    getMovies(WatchListid:number){
+        return instanse.get(`watchlists/${WatchListid}/movies`)
     },
     updateMovie(id:number){
         return instanse.put(`movies/${id}`)

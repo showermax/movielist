@@ -6,7 +6,7 @@ import {Movie} from './Movie';
 
 
 type PropsType = {
-    watchListId: string
+    watchListId: number
     genre: string
 }
 type MovieDNDType = MovieType & { order: number }
@@ -23,7 +23,7 @@ export const MoviesListDND: FC<PropsType> = (
         if (genre === "All") {
             return true;
         } else {
-            return movie.genre.toLowerCase() === genre.toLowerCase();
+            return movie.genres[0].name.toLowerCase() === genre.toLowerCase();
         }
     });
 

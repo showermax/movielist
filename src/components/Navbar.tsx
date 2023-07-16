@@ -15,7 +15,7 @@ export const Navbar: FC<NavbarPropsType> = (props) => {
 
     return (
         <div className={'navbar'}>
-            {watchList.map(el => <div key={el.id} className={'navItem'}><NavLink to={el.id}> {`${el.title}`} </NavLink></div>)}
+            {watchList.map(el => <div key={el.id} className={'navItem'}><NavLink to={el.id.toString()}> {`${el.title}`} </NavLink></div>)}
             <div className={'navItem'}>
                 <SuperButton name={"Add new +"} onClickCallBack={onClickHandler}/>
             </div>

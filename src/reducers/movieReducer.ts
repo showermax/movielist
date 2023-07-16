@@ -1,6 +1,5 @@
 import {MoviePayloadType, MovieType} from "../components/Watchlist/Watchlist";
 import {AddWatchListACType, allFilms, RemoveWatchListAC, topRated, watchedFilms} from "./watchListReducer";
-import {v1} from "uuid";
 import {MoviesType} from "../App";
 import {Dispatch} from "redux";
 import {apiMovie} from "../api/Juliya-api";
@@ -16,67 +15,21 @@ id: required(string)
 todoListId: required(string)
 order: required(integer)
 addedDate: required(datetime)*/
-
 const initialState = {
-    [allFilms]: [
-        {
-            id: v1(),
-            name: 'The Shawshank Redemption',
-            watched: false,
-            rating: 93,
-            genre: "Drama",
-            parents: allFilms,
-            order: 1
-        },
-        {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: allFilms, order: 2},
-        {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: allFilms, order: 3},
-        {
-            id: v1(),
-            name: 'The Godfather Part II',
-            watched: false,
-            rating: 90,
-            genre: "Crime",
-            parents: allFilms,
-            order: 4
-        },
-        {
-            id: v1(),
-            name: 'Schindler\'s List',
-            watched: false,
-            rating: 89,
-            genre: "Military",
-            parents: allFilms,
-            order: 5
-        },
-        {
-            id: v1(),
-            name: 'The Lord of the Rings',
-            watched: false,
-            rating: 87,
-            genre: "Fantasy",
-            parents: allFilms,
-            order: 6
-        },
-        {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime", parents: allFilms, order: 7}
-    ],
-    [topRated]: [
-        {
-            id: v1(),
-            name: 'The Shawshank Redemption',
-            watched: false,
-            rating: 93,
-            genre: "Drama",
-            parents: topRated,
-            order: 1
-        },
-        {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: topRated, order: 2},
-        {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: topRated, order: 3},
-    ],
-    [watchedFilms]: []
+    [allFilms]: [],
+    [topRated]: [],
+    [watchedFilms]: [],
+
 }
 
 export const movieReducer = (state: MoviesType = initialState, action: ActionsType): MoviesType => {
     switch (action.type) {
+        case "GET_MOVIES":{
+            return {
+                ...state,
+                [action.payload.watchListId]: action.payload.arrMovies
+            }
+        }
         case "ADD-FILM": {
             return {
                 ...state,
@@ -87,11 +40,11 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
         case "ADD-WATCH-LIST" : {
             return {...state, [action.payload.id]: []}
         }
-
         case 'REMOVE-WATCH-LIST': {
             delete state[action.payload.id]
             return state
         }
+
         case "REMOVE-FILMS": {
             return {
                 ...state,
@@ -100,29 +53,30 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
             }
         }
         case "CHANGE-STATUS": {
-            const parentsId = state[action.payload.watchListId].filter(el => el.id === action.payload.id)[0].parents
-            const {watchedFilms, watchListId, check, id} = action.payload
-
-            if (action.payload.watchListId !== watchedFilms) {
-                return {
-                    ...state,
-                    [watchListId]: state[watchListId].filter(el => el.id !== id),
-                    [watchedFilms]: [...state[watchedFilms], {
-                        ...state[watchListId].filter(el => el.id === id)[0],
-                        watched: check
-                    }]
-                }
-            } else {
-                return {
-                    ...state,
-                    [watchedFilms]: state[watchedFilms].filter(f => f.id !== id),
-                    [parentsId]: [...state[parentsId], ...state[watchedFilms].filter(f => f.id === id).map(el => ({
-                        ...el,
-                        watched: false
-                    }))]
-                }
-
-            }
+            // const parentsId = state[action.payload.watchListId].filter(el => el.id === action.payload.id)[0].parents
+            // const {watchedFilms, watchListId, check, id} = action.payload
+            //
+            // if (action.payload.watchListId !== watchedFilms) {
+            //     return {
+            //         ...state,
+            //         [watchListId]: state[watchListId].filter(el => el.id !== id),
+            //         [watchedFilms]: [...state[watchedFilms], {
+            //             ...state[watchListId].filter(el => el.id === id)[0],
+            //             watched: check
+            //         }]
+            //     }
+            // } else {
+            //     return {
+            //         ...state,
+            //         [watchedFilms]: state[watchedFilms].filter(f => f.id !== id),
+            //         [parentsId]: [...state[parentsId], ...state[watchedFilms].filter(f => f.id === id).map(el => ({
+            //             ...el,
+            //             watched: false
+            //         }))]
+            //     }
+            //
+            // }
+            return state
         }
         case "SORTED_NAME": {
             return {
@@ -139,6 +93,7 @@ export const movieReducer = (state: MoviesType = initialState, action: ActionsTy
         }
         default:
             return state
+
     }
 }
 
@@ -150,6 +105,7 @@ type ActionsType =
     | RemoveWatchListAC
     | SortedNameAC
     | SortDNDAC
+| GetMoviesAC
 
 type AddFilmACType = ReturnType<typeof addFilmAC>
 export const addFilmAC = (newFilm: MovieType, watchListId: number) => {
@@ -164,7 +120,7 @@ export const addFilmAC = (newFilm: MovieType, watchListId: number) => {
 
 
 type RemoveFilmsACType = ReturnType<typeof removeFilmsAC>
-export const removeFilmsAC = (id: string, watchListId: number) => {
+export const removeFilmsAC = (id: number, watchListId: number) => {
     return {
         type: "REMOVE-FILMS",
         payload: {
@@ -176,7 +132,7 @@ export const removeFilmsAC = (id: string, watchListId: number) => {
 
 
 type ChangeStatusACType = ReturnType<typeof changeStatusAC>
-export const changeStatusAC = (id: string, check: boolean, watchListId: number, watchedFilms: string) => {
+export const changeStatusAC = (id: number, check: boolean, watchListId: number, watchedFilms: number) => {
     return {
         type: "CHANGE-STATUS",
         payload: {
@@ -208,6 +164,20 @@ export const sortDNDAC = (watchListId: number, moviesArr: MovieType[]) => {
     } as const
 }
 
+type GetMoviesAC = ReturnType<typeof getMoviesAC>
+export const getMoviesAC = (watchListId: number, arrMovies: Array<MovieType>) => {
+    return {
+        type: 'GET_MOVIES',
+        payload: {
+            watchListId,
+            arrMovies
+        }
+    }as const
+}
+
+
+//thunk
+
 export const addMovieTC = (data:MoviePayloadType) => async (dispatch:Dispatch)=>{
     try {
         const res = await apiMovie.addMovie(data)
@@ -218,4 +188,77 @@ export const addMovieTC = (data:MoviePayloadType) => async (dispatch:Dispatch)=>
     }
 }
 
+export const getMoviesTC = (watchListId: number) => async (dispatch:Dispatch)=>{
+    try {
+        const res = await apiMovie.getMovies(watchListId)
+        dispatch(getMoviesAC(watchListId, res.data))
+        // console.log(res)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
+
 // export const getMovie
+
+
+
+
+// const initialState = {
+//     [allFilms]: [
+//         {
+//             id: v1(),
+//             name: 'The Shawshank Redemption',
+//             watched: false,
+//             rating: 93,
+//             genre: "Drama",
+//             parents: allFilms,
+//             order: 1
+//         },
+//         {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: allFilms, order: 2},
+//         {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: allFilms, order: 3},
+//         {
+//             id: v1(),
+//             name: 'The Godfather Part II',
+//             watched: false,
+//             rating: 90,
+//             genre: "Crime",
+//             parents: allFilms,
+//             order: 4
+//         },
+//         {
+//             id: v1(),
+//             name: 'Schindler\'s List',
+//             watched: false,
+//             rating: 89,
+//             genre: "Military",
+//             parents: allFilms,
+//             order: 5
+//         },
+//         {
+//             id: v1(),
+//             name: 'The Lord of the Rings',
+//             watched: false,
+//             rating: 87,
+//             genre: "Fantasy",
+//             parents: allFilms,
+//             order: 6
+//         },
+//         {id: v1(), name: 'Pulp Fiction', watched: false, rating: 89, genre: "Crime", parents: allFilms, order: 7}
+//     ],
+//     [topRated]: [
+//         {
+//             id: v1(),
+//             name: 'The Shawshank Redemption',
+//             watched: false,
+//             rating: 93,
+//             genre: "Drama",
+//             parents: topRated,
+//             order: 1
+//         },
+//         {id: v1(), name: 'The Godfather', watched: false, rating: 92, genre: "Crime", parents: topRated, order: 2},
+//         {id: v1(), name: 'The Dark Knight', watched: false, rating: 91, genre: "Action", parents: topRated, order: 3},
+//     ],
+//     [watchedFilms]: []
+// }

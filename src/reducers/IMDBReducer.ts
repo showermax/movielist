@@ -23,7 +23,7 @@ const initialState:ImdbMovieType[] = []
 
 export const IMDBReducer = (state = initialState, action: GetMoviesACType) =>{
     switch (action.type) {
-        case "GET_MOVIES":{
+        case "GET_IMDB_MOVIES":{
             return action.payload.movies
         }default: return state
     }
@@ -35,7 +35,7 @@ export const IMDBReducer = (state = initialState, action: GetMoviesACType) =>{
 type GetMoviesACType = ReturnType<typeof getMoviesAC>
 const getMoviesAC = (movies:any) =>{
     return{
-        type: "GET_MOVIES",
+        type: "GET_IMDB_MOVIES",
         payload: {
             movies
         }

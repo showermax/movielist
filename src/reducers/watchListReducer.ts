@@ -5,9 +5,9 @@ export type WatchListType = {
     id: number
     title: string
 }
-export const allFilms = 'idList1'
-export const topRated = 'idList2'
-export const watchedFilms = 'idList3'
+export const allFilms = 1
+export const topRated = 2
+export const watchedFilms = 3
 
 const initialState: WatchListType[] = [
     // {id: allFilms, title: 'Movies'},
