@@ -7,7 +7,7 @@ import styles from './MoviesList.module.scss';
 
 
 type PropsType = {
-    watchListId: string
+    watchListId: number
     genre: string
 }
 
@@ -24,7 +24,7 @@ export const MoviesList: FC<PropsType> = (
         if (genre === "All") {
             return true;
         } else {
-            return movie.genre.toLowerCase() === genre.toLowerCase();
+            return movie.genres[0].name.toLowerCase() === genre.toLowerCase();
         }
     });
 

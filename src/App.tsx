@@ -1,15 +1,12 @@
-import React, {useReducer, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 
 import {MovieType, Watchlist} from "./components/Watchlist/Watchlist";
 import {Navbar} from "./components/Navbar";
-import {Route, Routes, Navigate, useNavigate} from "react-router-dom";
-import {addFilmAC, changeStatusAC, movieReducer, removeFilmsAC} from "./reducers/movieReducer";
-import {addWatchListAC, allFilms, watchedFilms, watchListReducer} from "./reducers/watchListReducer";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {allFilms, getWatchListsTC} from "./reducers/watchListReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./store/store";
-import {Dispatch} from "redux";
-import {v1} from "uuid";
+import {appDispatch, AppRootStateType} from "./store/store";
 import styles from './App.module.scss';
 
 export type MoviesType = {
@@ -17,23 +14,27 @@ export type MoviesType = {
 }
 
 export type WatchListType = {
-    id: string
+    id: number
     title: string
 }
 
 //Проверка ГИТХАБ
 function App() {
-    console.log("APP")
-    const watchLists = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
+    const dispatch: appDispatch = useDispatch()
 
-    const dispatch: Dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(getWatchListsTC())
+    },[])
+    console.log("APP")
+
+    const watchLists = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
 
     const navigate = useNavigate();
 
     const addWatchList = () => {
-        const newId = v1();
-        navigate(newId)
-        dispatch(addWatchListAC(newId))
+        // const newId = v1();
+        // navigate(newId)
+        // dispatch(addWatchListAC(newId))
     }
     return (
         <div className={styles.App}>
@@ -47,7 +48,7 @@ function App() {
                 <Routes>
                     {watchLists.map(el => {
                             return (
-                                <Route key={el.id} path={el.id} element={
+                                <Route key={el.id} path={`${el.id}`} element={
                                     <Watchlist
                                         watchListId={el.id}
                                         title={el.title}
@@ -57,7 +58,7 @@ function App() {
                             )
                         }
                     )}
-                    <Route path={'/*'} element={<Navigate to={watchLists.length ? watchLists[0].id : allFilms}/>}/>
+                    <Route path={'/*'} element={<Navigate to={watchLists.length ? watchLists[0].id.toString() : allFilms.toString()}/>}/>
 
                 </Routes>
             </div>

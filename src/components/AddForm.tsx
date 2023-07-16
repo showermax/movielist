@@ -10,18 +10,18 @@ import {AppRootStateType} from "../store/store";
 
 
 type PropsType = {
-    watchListId: string
+    watchListId: number
 }
 export const AddForm: FC<PropsType> = memo(({watchListId}) => {
     const moviesArray = useSelector<AppRootStateType, MovieType[]>(state => state.movies[watchListId])
-    console.log(moviesArray)
     const newLastOrder = moviesArray.length > 0
-        ? moviesArray[moviesArray.length-1].order +1
+        ? moviesArray[moviesArray.length-1].id +1
         : 1
-    console.log(newLastOrder)
     const dispatch = useDispatch()
-    const [newFilm, setNewFilm] = useState<MovieType>(
-        {id: v1(), name: "", watched: false, rating: NaN, genre: "", parents: watchListId, order: 0}
+    const [newFilm, setNewFilm] = useState<MovieType | null>(
+        // {id: 0, name: "", watched: false, rating: NaN, genres: []
+            // , parents: watchListId, order: 0
+        // }
     )
     const [addForm, setAddForm] = useState<boolean>(false)
     // const [text, setText] = useState<string>("")
@@ -32,19 +32,19 @@ export const AddForm: FC<PropsType> = memo(({watchListId}) => {
     let buttonDisabled = false
 
     const addFilmHandler = () => {
-        dispatch(addFilmAC(newFilm, watchListId))
-        setNewFilm({id: v1(), name: "", watched: false, rating: NaN, genre: "", parents: watchListId, order: 0})
+        // dispatch(addFilmAC(newFilm, watchListId))
+        // setNewFilm({id: 0, name: "", watched: false, rating: NaN, genre: "", parents: watchListId, order: 0})
     }
 
-    if (newFilm.rating > 100 || newFilm.rating < 0) {
-        buttonDisabled = true
-    }
+    // if (newFilm.rating > 100 || newFilm.rating < 0) {
+    //     buttonDisabled = true
+    // }
     const onChangeSelectHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        setNewFilm({...newFilm, genre: e.currentTarget.value})
+        // setNewFilm({...newFilm, genres: e.currentTarget.value})
 
     }
     const setNewFilmHandler = (newFilm: MovieType) => {
-        setNewFilm({...newFilm, order: newLastOrder})
+        // setNewFilm({...newFilm, order: newLastOrder})
     }
 
     return (
@@ -52,10 +52,10 @@ export const AddForm: FC<PropsType> = memo(({watchListId}) => {
             <SuperButton name={'ADD FILM'} onClickCallBack={() => setAddForm(!addForm)}/>
             {addForm && <div>
 
-                <SuperInput value={newFilm.name} type={'text'} newFilm={newFilm} setNewFilm={setNewFilmHandler}
-                            property={'name'}/>
-                <SuperInput value={newFilm.rating} type={'number'} newFilm={newFilm} setNewFilm={setNewFilm}
-                            property={'rating'}/>
+                {/*<SuperInput value={newFilm.name} type={'text'} newFilm={newFilm} setNewFilm={setNewFilmHandler}*/}
+                {/*            property={'name'}/>*/}
+                {/*<SuperInput value={newFilm.rating} type={'number'} newFilm={newFilm} setNewFilm={setNewFilm}*/}
+                {/*            property={'rating'}/>*/}
                 <select name="movies" onChange={onChangeSelectHandler}>
                     <option value="All">All Genre</option>
                     <option value="Drama">Drama</option>
