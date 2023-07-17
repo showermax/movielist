@@ -50,7 +50,7 @@ export  type MoviePayloadType = {
 
 export const Watchlist = memo((props: PropsType) => {
     const state = useSelector<AppRootStateType, ImdbMovieType[]>(state => state.Imdb)
-    console.log(state)
+
     const dispatch = useDispatch<appDispatch>()
 
     const [genre, setGenre] = useState("All");

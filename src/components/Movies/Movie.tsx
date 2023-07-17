@@ -8,7 +8,7 @@ import {Dispatch} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import styles from './Movie.module.scss';
-import img from '../../img/dark_knight.jpg';
+import img from '../../assets/img/dark_knight.jpg';
 
 type PropsType = {
     watchListId: number,
