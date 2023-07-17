@@ -192,7 +192,7 @@ export const getMoviesTC = (watchListId: number) => async (dispatch:Dispatch)=>{
     try {
         const res = await apiMovie.getMovies(watchListId)
         dispatch(getMoviesAC(watchListId, res.data))
-        // console.log(res)
+        console.log(res)
     } catch (e) {
         console.log(e)
     }

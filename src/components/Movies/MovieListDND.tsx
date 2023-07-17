@@ -24,13 +24,15 @@ export const MoviesListDND: FC<PropsType> = (
     useEffect(()=>{
         dispatch(getMoviesTC(watchListId))
     },[])
-
+    console.log('hi')
     const filteredMovies= movies.filter((movie) => {
-        // if (genre === "All") {
-        //     return true;
-        // } else {
-        //     return movie.genres[0].toLowerCase() === genre.toLowerCase();
-        // }
+        if (genre === "All") {
+            return true;
+        } else {
+            const stringOfGenres = JSON.stringify(movie.genres)
+            console.log(movie)
+            // return movie.genres[0]..toLowerCase() === genre.toLowerCase();
+        }
     });
 
     const [moviesListDND, setMoviesListDND] = useState<any>(filteredMovies)

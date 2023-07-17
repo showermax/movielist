@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {allFilms, changeTitleAC, removeWatchListAC} from "../../reducers/watchListReducer";
 import {EditableSpan} from "../EditableSpan";
 import {addMovieTC} from "../../reducers/movieReducer";
-import {MoviesListDND} from "../Movies/MovieListsDND";
+import {MoviesListDND} from "../Movies/MovieListDND";
 import styles from './Watchlist.module.scss';
 import {getMoviesTC, ImdbMovieType} from "../../reducers/IMDBReducer";
 import {appDispatch, AppRootStateType} from "../../store/store";
