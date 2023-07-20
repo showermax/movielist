@@ -20,7 +20,8 @@ export const MoviesListDND: FC<PropsType> = (
 ) => {
     const movies = useSelector<AppRootStateType, MovieType[] >(state => state.movies[watchListId])
     const dispatch: appDispatch = useDispatch()
-   /* const moviesDND: MovieDNDType[]  = movies.map((el, index)=> ({...el, order: index+1}))*/
+   /*
+   const moviesDND: MovieDNDType[]  = movies.map((el, index)=> ({...el, order: index+1}))*/
     useEffect(()=>{
         dispatch(getMoviesTC(watchListId))
     },[])
