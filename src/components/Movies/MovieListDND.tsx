@@ -74,7 +74,7 @@ export const MoviesListDND: FC<PropsType> = (
                 return (
                     <div draggable={true} onDragStart={(e)=>onDragHandler(e, el)}
                     onDrop={(e)=>onDropHandler(e,el)} onDragOver={(e)=>onDragOverHandler(e)}
-                    >
+                    > <div>HI</div>
                         {/*<span>{el.id}</span>*/}
                         <Movie key={el.id} movieId={el.id} watchListId={watchListId}/>
                     </div>
