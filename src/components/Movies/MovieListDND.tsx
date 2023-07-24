@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {appDispatch, AppRootStateType} from "../../store/store";
 import {Movie} from './Movie';
 import styles from "./MoviesList.module.scss";
-import {getMoviesTC, sortDNDAC} from "../../reducers/movieReducer";
+import {getMoviesTC} from "../../reducers/movieReducer";
 
 
 type PropsType = {
@@ -24,18 +24,19 @@ export const MoviesListDND: FC<PropsType> = (
     useEffect(()=>{
         dispatch(getMoviesTC(watchListId))
     },[])
-    console.log('hi')
-    const filteredMovies= movies.filter((movie) => {
-        if (genre === "All") {
-            return true;
-        } else {
-            const stringOfGenres = JSON.stringify(movie.genres)
-            console.log(movie)
-            // return movie.genres[0]..toLowerCase() === genre.toLowerCase();
-        }
-    });
+    // console.log('hi')
+    // const filteredMovies= movies.filter((movie) => {
+    //     if (genre === "All") {
+    //         return true;
+    //     } else {
+    //         const stringOfGenres = JSON.stringify(movie.genres)
+    //         console.log(movie)
+    //         // return movie.genres[0]..toLowerCase() === genre.toLowerCase();
+    //     }
+    // }
+    // );
 
-    const [moviesListDND, setMoviesListDND] = useState<any>(filteredMovies)
+    // const [moviesListDND, setMoviesListDND] = useState<any>(filteredMovies)
     const [currentMovie, setCurrentMovie] = useState<MovieType | null>(null)
     const onSorted =()=>{
         // return filteredMovies.sort((a,b) => a.order - b.order)
@@ -69,7 +70,7 @@ export const MoviesListDND: FC<PropsType> = (
 
     return (
         <ul className={styles.blocks}>
-            {movies.map((el) => {
+            {movies?.map((el) => {
                 return (
                     <div draggable={true} onDragStart={(e)=>onDragHandler(e, el)}
                     onDrop={(e)=>onDropHandler(e,el)} onDragOver={(e)=>onDragOverHandler(e)}

@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import {SuperButton} from "../SuperButton";
 import {SuperCheckBox} from "../SuperCheckBox";
-import {addFilmAC, changeStatusAC, removeFilmsAC} from "../../reducers/movieReducer";
+import {movieActions} from "../../reducers/movieReducer";
 import {MovieType} from "../Watchlist/Watchlist";
 import {watchedFilms} from "../../reducers/watchListReducer";
 import {Dispatch} from "redux";
@@ -25,17 +25,17 @@ export const Movie: FC<PropsType> = memo((
     const dispatch: Dispatch = useDispatch()
 
     const changeStatus = (id: number, check: boolean, watchListId: number) =>{
-        dispatch(changeStatusAC(id,check,watchListId, watchedFilms))
+        dispatch(movieActions.changeStatus({id,check,watchListId, watchedFilms}))
     }
     const checkBoxHandler = (id: number, check: boolean) => {
         changeStatus(id, check, watchListId)
     }
 
     function removeFilmsHandler(id: number) {
-        dispatch(removeFilmsAC(id, watchListId))
+        dispatch(movieActions.removeFilm({id, watchListId}))
     }
     const addFilm = (newFilm: MovieType, watchListId: number) => {
-        dispatch(addFilmAC(newFilm, watchListId))
+        dispatch(movieActions.addFilm({newFilm, watchListId}))
     }
 
     return (

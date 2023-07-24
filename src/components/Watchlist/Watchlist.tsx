@@ -1,9 +1,8 @@
 import React, {memo, useState} from 'react';
-import {AddForm} from "../AddForm";
 import {FilterGenre} from "../FilterGenre";
 import {SuperButton} from "../SuperButton";
 import {useDispatch, useSelector} from "react-redux";
-import {allFilms, changeTitleAC, removeWatchListAC} from "../../reducers/watchListReducer";
+import {allFilms, watchListActions} from "../../reducers/watchListReducer";
 import {EditableSpan} from "../EditableSpan";
 import {addMovieTC} from "../../reducers/movieReducer";
 import {MoviesListDND} from "../Movies/MovieListDND";
@@ -59,12 +58,12 @@ export const Watchlist = memo((props: PropsType) => {
     }
 
     const removeWatchList = () => {
-        dispatch(removeWatchListAC(props.watchListId))
+        dispatch(watchListActions.removeWatchList({id: props.watchListId}))
     }
 
     const editContentHandler = (newTitle: string) => {
         // console.log(newTitle)
-        dispatch(changeTitleAC(props.watchListId, newTitle))
+        dispatch(watchListActions.changeTitle({watchListId: props.watchListId, newTitle}))
     }
 
     const getFilms = ()=>{
