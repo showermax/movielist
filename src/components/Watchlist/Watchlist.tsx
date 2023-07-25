@@ -24,15 +24,16 @@ export type GenresType = {
 }
 
 export type MovieType = {
-    name: string
-    watched: boolean
-    rating: number
     description: string
-    releaseYear: string
     duration: string
-    url: string
-    genres: Array<GenresType>
+    genreNames: Array<string>
     id: number
+    name: string
+    rating: number
+    releaseYear: string
+    url: string
+    watchListNames: Array<string>
+    watched: boolean
 }
 
 export  type MoviePayloadType = {

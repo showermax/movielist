@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {MoviePayloadType} from "components/Watchlist/Watchlist";
+import {MoviePayloadType, MovieType} from "components/Watchlist/Watchlist";
 
 type GetMoviesFromWatchlist = {
     data: ResponseGetMovieType
@@ -10,21 +10,10 @@ type ResponseWatchlistsType = {
     title: string
     id: number
 }
-export type ResponseMoviesType = {
-    description: string
-    duration: string
-    genreNames: Array<string>
-    id: number
-    name: string
-    rating: number
-    releaseYear: string
-    url: string
-    watchListNames: Array<string>
-    watched: boolean
-}
+
 
 export type ResponseGetMovieType = {
-    items: ResponseMoviesType []
+    items: MovieType []
     totalCount: number
     pageNumber: number
     pageSize: number

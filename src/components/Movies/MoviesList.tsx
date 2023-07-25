@@ -24,7 +24,7 @@ export const MoviesList: FC<PropsType> = (
         if (genre === "All") {
             return true;
         } else {
-            return movie.genres[0].name.toLowerCase() === genre.toLowerCase();
+            return movie.genreNames[0].toLowerCase() === genre.toLowerCase();
         }
     });
 

@@ -1,9 +1,8 @@
-import {MoviePayloadType, MovieType} from "../components/Watchlist/Watchlist";
+import {MoviePayloadType, MovieType} from "components/Watchlist/Watchlist";
 import {Dispatch} from "redux";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {watchListActions} from "../reducers/watchListReducer";
-import {apiMovie, ResponseGetMovieType, ResponseMoviesType} from "../api/Juliya-api";
-
+import {watchListActions} from "reducers/watchListReducer";
+import {apiMovie} from "api/Juliya-api";
 
 const initialState: MoviesStateType = {
     // [allFilms]: [],
