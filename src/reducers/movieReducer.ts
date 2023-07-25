@@ -4,7 +4,6 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {watchListActions} from "reducers/watchListReducer";
 import {apiMovie} from "api/Juliya-api";
 
-
 const initialState: MoviesStateType = {
     // [allFilms]: [],
     // [topRated]: [],
