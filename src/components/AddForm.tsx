@@ -4,7 +4,6 @@ import {MovieType} from "./Watchlist/Watchlist";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../store/store";
 
-
 type PropsType = {
     watchListId: number
 }
