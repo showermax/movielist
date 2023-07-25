@@ -1,8 +1,9 @@
-import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import {AnyAction, combineReducers} from "redux";
 import {watchListReducer} from "../reducers/watchListReducer";
-import {movieReducer} from "../reducers/movieReducer";
-import thunk, {ThunkDispatch} from "redux-thunk";
+import {ThunkDispatch} from "redux-thunk";
 import {IMDBReducer} from "../reducers/IMDBReducer";
+import {configureStore} from "@reduxjs/toolkit";
+import {movieReducer} from "../reducers/movieReducer";
 
 const rootReducer = combineReducers({
     watchLists: watchListReducer,
@@ -10,7 +11,12 @@ const rootReducer = combineReducers({
     Imdb: IMDBReducer
 })
 
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
+export const store = configureStore({
+    reducer: rootReducer
+})
+
+// export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
+// export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
 export type appDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 
