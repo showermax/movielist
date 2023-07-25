@@ -1,13 +1,8 @@
 import React, {ChangeEvent, FC, memo, useState} from 'react';
 import {SuperButton} from "./SuperButton";
-import {v1} from "uuid";
-import {SuperInput} from "./SuperInput";
 import {MovieType} from "./Watchlist/Watchlist";
 import {useDispatch, useSelector} from "react-redux";
-import {addFilmAC} from "../reducers/movieReducer";
 import {AppRootStateType} from "../store/store";
-// import {InputGenre} from './InputGenre'
-
 
 type PropsType = {
     watchListId: number

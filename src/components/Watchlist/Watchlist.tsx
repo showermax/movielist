@@ -1,15 +1,14 @@
 import React, {memo, useState} from 'react';
-import {AddForm} from "../AddForm";
 import {FilterGenre} from "../FilterGenre";
 import {SuperButton} from "../SuperButton";
 import {useDispatch, useSelector} from "react-redux";
-import {allFilms, changeTitleAC, removeWatchListAC} from "../../reducers/watchListReducer";
+import {allFilms, changeTitleAC, removeWatchListAC} from "reducers/watchListReducer";
 import {EditableSpan} from "../EditableSpan";
-import {addMovieTC} from "../../reducers/movieReducer";
+import {addMovieTC} from "reducers/movieReducer";
 import {MoviesListDND} from "../Movies/MovieListDND";
 import styles from './Watchlist.module.scss';
-import {getMoviesTC, ImdbMovieType} from "../../reducers/IMDBReducer";
-import {appDispatch, AppRootStateType} from "../../store/store";
+import {getMoviesTC, ImdbMovieType} from "reducers/IMDBReducer";
+import {appDispatch, AppRootStateType} from "store/store";
 import {transformFilm} from "../../utils/transformFilm";
 import {apiMovie} from "../../api/Juliya-api";
 
