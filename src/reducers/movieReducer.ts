@@ -2,7 +2,7 @@ import {MoviePayloadType, MovieType} from "../components/Watchlist/Watchlist";
 import {AddWatchListACType, allFilms, RemoveWatchListAC, topRated, watchedFilms} from "./watchListReducer";
 import {MoviesType} from "../App";
 import {Dispatch} from "redux";
-import {apiMovie} from "../api/Juliya-api";
+import {apiMovie, ResponseGetMovieType, ResponseMoviesType} from "../api/Juliya-api";
 
 /*description: required(string)
 title: required(string)
@@ -165,7 +165,7 @@ export const sortDNDAC = (watchListId: number, moviesArr: MovieType[]) => {
 }
 
 type GetMoviesAC = ReturnType<typeof getMoviesAC>
-export const getMoviesAC = (watchListId: number, arrMovies: Array<MovieType>) => {
+export const getMoviesAC = (watchListId: number, arrMovies: Array<ResponseMoviesType>) => {
     return {
         type: 'GET_MOVIES',
         payload: {
@@ -180,7 +180,7 @@ export const getMoviesAC = (watchListId: number, arrMovies: Array<MovieType>) =>
 
 export const addMovieTC = (data:MoviePayloadType) => async (dispatch:Dispatch)=>{
     try {
-        const res = await apiMovie.addMovie(data)
+                const res = await apiMovie.addMovie(data)
         console.log(res)
 
     } catch (e) {
@@ -191,7 +191,7 @@ export const addMovieTC = (data:MoviePayloadType) => async (dispatch:Dispatch)=>
 export const getMoviesTC = (watchListId: number) => async (dispatch:Dispatch)=>{
     try {
         const res = await apiMovie.getMovies(watchListId)
-        dispatch(getMoviesAC(watchListId, res.data))
+        dispatch(getMoviesAC(watchListId, res.data.items))
         console.log(res)
     } catch (e) {
         console.log(e)
