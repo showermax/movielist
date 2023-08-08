@@ -1,25 +1,8 @@
 import {Dispatch} from "redux";
-import {getIMDB} from "../api/IMDB-api";
-
-export type ImdbMovieType = {
-    _id: string
-    id: string
-    __v: number
-    description: string
-    director: string[]
-    genre: string[]
-    image: Array<string[]>
-    imdbid: string
-    rank: number
-    rating: string
-    thumbnail: string
-    title: string
-    writers: string[]
-    year: number
-}
+import {getIMDB} from "api/IMDB-api";
+import {ImdbMovieType} from "types/types";
 
 const initialState:ImdbMovieType[] = []
-
 
 export const IMDBReducer = (state = initialState, action: GetMoviesACType) =>{
     switch (action.type) {
@@ -28,9 +11,6 @@ export const IMDBReducer = (state = initialState, action: GetMoviesACType) =>{
         }default: return state
     }
 }
-
-
-
 
 type GetMoviesACType = ReturnType<typeof getMoviesAC>
 const getMoviesAC = (movies:any) =>{

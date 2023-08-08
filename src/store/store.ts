@@ -1,9 +1,9 @@
 import {AnyAction, combineReducers} from "redux";
-import {watchListReducer} from "../reducers/watchListReducer";
+import {watchListReducer} from "reducers/watchListReducer";
 import {ThunkDispatch} from "redux-thunk";
-import {IMDBReducer} from "../reducers/IMDBReducer";
+import {IMDBReducer} from "reducers/IMDBReducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {movieReducer} from "../reducers/movieReducer";
+import {movieReducer} from "reducers/movieReducer";
 
 const rootReducer = combineReducers({
     watchLists: watchListReducer,

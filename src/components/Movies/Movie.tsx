@@ -1,14 +1,14 @@
 import React, {FC, memo} from 'react';
 import {SuperButton} from "../SuperButton";
 import {SuperCheckBox} from "../SuperCheckBox";
-import {movieActions} from "../../reducers/movieReducer";
-import {MovieType} from "../Watchlist/Watchlist";
-import {watchedFilms} from "../../reducers/watchListReducer";
+import {movieActions} from "reducers/movieReducer";
+import {watchedFilms} from "reducers/watchListReducer";
 import {Dispatch} from "redux";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../store/store";
+import {AppRootStateType} from "store/store";
 import styles from './Movie.module.scss';
 import img from '../../assets/img/dark_knight.jpg';
+import {MovieType} from "types/types";
 
 type PropsType = {
     watchListId: number,

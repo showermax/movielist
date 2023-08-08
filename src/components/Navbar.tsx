@@ -1,12 +1,9 @@
 import {NavLink} from "react-router-dom"
 import {SuperButton} from "./SuperButton";
 import {FC} from "react";
-import {WatchListType} from "../App";
+import {NavbarPropsType} from "types/types";
 
-export type NavbarPropsType = {
-    addWatchList: () => void
-    watchList: WatchListType[]
-}
+
 export const Navbar: FC<NavbarPropsType> = (props) => {
     const {addWatchList, watchList} = props
     const onClickHandler = () => {
