@@ -1,11 +1,10 @@
 import React, {FC, useEffect, useState} from 'react';
-import {MovieType} from "../Watchlist/Watchlist";
 import {useDispatch, useSelector} from "react-redux";
-import {appDispatch, AppRootStateType} from "../../store/store";
+import {appDispatch, AppRootStateType} from "store/store";
 import {Movie} from './Movie';
 import styles from "./MoviesList.module.scss";
-import {getMoviesTC} from "../../reducers/movieReducer";
-
+import {getMoviesTC} from "reducers/movieReducer";
+import {MovieType} from "types/types";
 
 type PropsType = {
     watchListId: number

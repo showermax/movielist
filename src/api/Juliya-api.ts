@@ -1,23 +1,7 @@
+import {MoviePayloadType, ResponseGetMovieType, ResponseWatchlistsType} from "types/types";
 import axios, {AxiosResponse} from "axios";
-import {MoviePayloadType, MovieType} from "components/Watchlist/Watchlist";
-
-type GetMoviesFromWatchlist = {
-    data: ResponseGetMovieType
-    status: number
-    statusText: string
-}
-type ResponseWatchlistsType = {
-    title: string
-    id: number
-}
 
 
-export type ResponseGetMovieType = {
-    items: MovieType []
-    totalCount: number
-    pageNumber: number
-    pageSize: number
-}
 const instanse = axios.create({
     baseURL: "http://movieapi.somee.com/api/"
 })

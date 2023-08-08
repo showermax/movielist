@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {AxiosResponse} from 'axios'
-import {ImdbMovieType} from "../reducers/IMDBReducer";
+import {ImdbMovieType} from "types/types";
 
 const options = {
     method: 'GET',

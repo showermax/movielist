@@ -1,8 +1,5 @@
 import React, {ChangeEvent, FC, memo} from 'react';
-import {MovieType} from "./Watchlist/Watchlist";
-
-
-
+import {MovieType} from "types/types";
 type SuperInputType ={
     value: string | number
     type: string

@@ -1,5 +1,4 @@
-import {ImdbMovieType} from "../reducers/IMDBReducer";
-import {MoviePayloadType} from "../components/Watchlist/Watchlist";
+import {ImdbMovieType, MoviePayloadType} from "types/types";
 
 export const transformFilm = (film: ImdbMovieType):MoviePayloadType => {
     const transformGenres: Array<string> = film.genre.map(genre=>genre.trim())

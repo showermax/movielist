@@ -2,50 +2,20 @@ import React, {memo, useState} from 'react';
 import {FilterGenre} from "../FilterGenre";
 import {SuperButton} from "../SuperButton";
 import {useDispatch, useSelector} from "react-redux";
-import {allFilms, watchListActions} from "../../reducers/watchListReducer";
+import {allFilms, watchListActions} from "reducers/watchListReducer";
 import {EditableSpan} from "../EditableSpan";
 import {addMovieTC} from "reducers/movieReducer";
 import {MoviesListDND} from "../Movies/MovieListDND";
 import styles from './Watchlist.module.scss';
-import {getMoviesTC, ImdbMovieType} from "reducers/IMDBReducer";
+import {getMoviesTC} from "reducers/IMDBReducer";
 import {appDispatch, AppRootStateType} from "store/store";
-import {transformFilm} from "../../utils/transformFilm";
-import {apiMovie} from "../../api/Juliya-api";
+import {transformFilm} from "utils/transformFilm";
+import {apiMovie} from "api/Juliya-api";
+import {ImdbMovieType} from "types/types";
 
 export type PropsType = {
-
     title: string
     watchListId: number
-}
-
-export type GenresType = {
-    name: string
-    id: number
-}
-
-export type MovieType = {
-    description: string
-    duration: string
-    genreNames: Array<string>
-    id: number
-    name: string
-    rating: number
-    releaseYear: string
-    url: string
-    watchListNames: Array<string>
-    watched: boolean
-}
-
-export  type MoviePayloadType = {
-    watchListIds: Array<number>
-    name: string
-    watched: boolean
-    rating: number
-    description: string
-    releaseYear: string
-    duration: string
-    url: string
-    genreNames: Array<string>
 }
 
 export const Watchlist = memo((props: PropsType) => {
@@ -83,9 +53,6 @@ export const Watchlist = memo((props: PropsType) => {
             apiMovie.deleteMovie(i)
         }
     }
-
-
-
     return (
         <div className={styles.main}>
             <div className={'watchListHeader'}>

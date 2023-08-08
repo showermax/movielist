@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, memo, useState} from 'react';
 import {SuperButton} from "./SuperButton";
-import {MovieType} from "./Watchlist/Watchlist";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../store/store";
+import {AppRootStateType} from "store/store";
+import {MovieType} from "types/types";
 
 type PropsType = {
     watchListId: number

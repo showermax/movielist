@@ -1,11 +1,8 @@
 import {Dispatch} from "redux";
-import {apiWatchList} from "../api/Juliya-api";
+import {apiWatchList} from "api/Juliya-api";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {WatchListType} from "types/types";
 
-export type WatchListType = {
-    id: number
-    title: string
-}
 export const allFilms = 1
 export const topRated = 2
 export const watchedFilms = 3

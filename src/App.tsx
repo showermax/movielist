@@ -1,22 +1,14 @@
 import React, {useEffect} from 'react';
 import './App.css';
-
-import {MovieType, Watchlist} from "./components/Watchlist/Watchlist";
-import {Navbar} from "./components/Navbar";
+import {Watchlist} from "components/Watchlist/Watchlist";
+import {Navbar} from "components/Navbar";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
-import {allFilms, getWatchListsTC} from "./reducers/watchListReducer";
+import {allFilms, getWatchListsTC} from "reducers/watchListReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {appDispatch, AppRootStateType} from "./store/store";
+import {appDispatch, AppRootStateType} from "store/store";
 import styles from './App.module.scss';
+import {WatchListType} from "types/types";
 
-export type MoviesType = {
-    [key: string]: MovieType[]
-}
-
-export type WatchListType = {
-    id: number
-    title: string
-}
 
 //Проверка ГИТХАБ
 function App() {
