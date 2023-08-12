@@ -4,11 +4,7 @@ import {watchListActions} from "reducers/watchListReducer";
 import {apiMovie} from "api/Juliya-api";
 import {MoviePayloadType, MovieType} from "types/types";
 
-const initialState: MoviesStateType = {
-    // [allFilms]: [],
-    // [topRated]: [],
-    // [watchedFilms]: [],
-}
+const initialState: MoviesStateType = {}
 
 export type MoviesStateType = {
     [key: number]: MovieType[]

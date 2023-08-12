@@ -2,37 +2,27 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Watchlist} from "components/Watchlist/Watchlist";
 import {Navbar} from "components/Navbar";
-import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {allFilms, getWatchListsTC} from "reducers/watchListReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {appDispatch, AppRootStateType} from "store/store";
 import styles from './App.module.scss';
 import {WatchListType} from "types/types";
 
-
-//Проверка ГИТХАБ
 function App() {
     const dispatch: appDispatch = useDispatch()
 
     useEffect(()=>{
         dispatch(getWatchListsTC())
-    },[])
+    },[dispatch])
     console.log("APP")
 
     const watchLists = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
 
-    const navigate = useNavigate();
-
-    const addWatchList = () => {
-        // const newId = v1();
-        // navigate(newId)
-        // dispatch(addWatchListAC(newId))
-    }
     return (
         <div className={styles.App}>
             <header className={"App-header"}>
                 <Navbar
-                    addWatchList={addWatchList}
                     watchList={watchLists}
                 />
             </header>
@@ -51,7 +41,6 @@ function App() {
                         }
                     )}
                     <Route path={'/*'} element={<Navigate to={watchLists.length ? watchLists[0].id.toString() : allFilms.toString()}/>}/>
-
                 </Routes>
             </div>
         </div>

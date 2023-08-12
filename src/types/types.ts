@@ -8,7 +8,6 @@ export type WatchListType = {
     title: string
 }
 export type NavbarPropsType = {
-    addWatchList: () => void
     watchList: WatchListType[]
 }
 
