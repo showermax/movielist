@@ -3,7 +3,7 @@ import {useForm} from 'react-hook-form';
 import {useDispatch} from "react-redux";
 import {appDispatch} from "store/store";
 import {addMovieTC} from "reducers/movieReducer";
-import {MoviePayloadType} from "components/Watchlist/Watchlist";
+import {MoviePayloadType} from "types/types";
 
 type _FormData = {
     name: string;
@@ -19,6 +19,7 @@ type _FormData = {
 
 
 type AddMovieFormProps = {
+
     onSubmit: (data: MoviePayloadType) => void;
 };
 
