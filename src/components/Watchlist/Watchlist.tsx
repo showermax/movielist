@@ -69,3 +69,5 @@ export const Watchlist = memo((props: PropsType) => {
         </div>
     );
 })
+
+//!!!!!!!test
