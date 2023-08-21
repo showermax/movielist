@@ -21,7 +21,7 @@ export const MoviesList: FC<Props> = (
     const dispatch: appDispatch = useDispatch()
     useEffect(()=>{
         dispatch(getMoviesTC(watchListId))
-    },[])
+    },[watchListId])
     // const [moviesListDND, setMoviesListDND] = useState<any>(filteredMovies)
     const [currentMovie, setCurrentMovie] = useState<MovieType | null>(null)
     const onSorted =()=>{
