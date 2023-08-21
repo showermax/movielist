@@ -9,20 +9,17 @@ import {appDispatch, AppRootStateType} from "store/store";
 import styles from './App.module.scss';
 import {WatchListType} from "types/types";
 
-
-//Проверка ГИТХАБ
 function App() {
     const dispatch: appDispatch = useDispatch()
 
     useEffect(()=>{
         dispatch(getWatchListsTC())
-    },[])
+    },[dispatch])
     console.log("APP")
 
     const watchLists = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
 
     const navigate = useNavigate();
-
     const addWatchList = () => {
         // const newId = v1();
         // navigate(newId)
@@ -51,7 +48,6 @@ function App() {
                         }
                     )}
                     <Route path={'/*'} element={<Navigate to={watchLists.length ? watchLists[0].id.toString() : allFilms.toString()}/>}/>
-
                 </Routes>
             </div>
         </div>

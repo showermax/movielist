@@ -6,12 +6,12 @@ import styles from "./MoviesList.module.scss";
 import {getMoviesTC} from "reducers/movieReducer";
 import {MovieType} from "types/types";
 
-type PropsType = {
+type Props = {
     watchListId: number
     genre: string
 }
-type MovieDNDType = MovieType & {order: number}
-export const MoviesListDND: FC<PropsType> = (
+
+export const MoviesList: FC<Props> = (
     {
         watchListId,
         genre
@@ -19,23 +19,9 @@ export const MoviesListDND: FC<PropsType> = (
 ) => {
     const movies = useSelector<AppRootStateType, MovieType[] >(state => state.movies[watchListId])
     const dispatch: appDispatch = useDispatch()
-   /*
-   const moviesDND: MovieDNDType[]  = movies.map((el, index)=> ({...el, order: index+1}))*/
     useEffect(()=>{
         dispatch(getMoviesTC(watchListId))
     },[])
-    // console.log('hi')
-    // const filteredMovies= movies.filter((movie) => {
-    //     if (genre === "All") {
-    //         return true;
-    //     } else {
-    //         const stringOfGenres = JSON.stringify(movie.genres)
-    //         console.log(movie)
-    //         // return movie.genres[0]..toLowerCase() === genre.toLowerCase();
-    //     }
-    // }
-    // );
-
     // const [moviesListDND, setMoviesListDND] = useState<any>(filteredMovies)
     const [currentMovie, setCurrentMovie] = useState<MovieType | null>(null)
     const onSorted =()=>{
@@ -49,7 +35,6 @@ export const MoviesListDND: FC<PropsType> = (
     const onDragOverHandler=(e:React.DragEvent<HTMLDivElement>)=>{
         e.preventDefault()
     }
-
     const onDropHandler = (e: React.DragEvent<HTMLDivElement>, movie: MovieType) => {
         // e.preventDefault()
         // if (currentMovie !== null) {
@@ -72,10 +57,7 @@ export const MoviesListDND: FC<PropsType> = (
         <ul className={styles.blocks}>
             {movies?.map((el) => {
                 return (
-                    <div draggable={true} onDragStart={(e)=>onDragHandler(e, el)}
-                    onDrop={(e)=>onDropHandler(e,el)} onDragOver={(e)=>onDragOverHandler(e)}
-                    > <div>HI</div>
-                        {/*<span>{el.id}</span>*/}
+                    <div>
                         <Movie key={el.id} movieId={el.id} watchListId={watchListId}/>
                     </div>
                 )

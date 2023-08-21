@@ -7,7 +7,6 @@ import {Dispatch} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "store/store";
 import styles from './Movie.module.scss';
-import img from '../../assets/img/dark_knight.jpg';
 import {MovieType} from "types/types";
 
 type PropsType = {
@@ -42,7 +41,6 @@ export const Movie: FC<PropsType> = memo((
         <li className={styles.list}>
             <SuperButton styles={styles.btn} name={'del'} onClickCallBack={() => removeFilmsHandler(movie.id)}/>
             <img src={movie.url} alt={movie.name} className={styles.img}/>
-            {/*<input type={'checkbox'} onChange={checkBoxHandler} checked={el.watched}/>*/}
             <div>
                 <SuperCheckBox callBack={(check) => checkBoxHandler(movie.id, check)} checked={movie.watched}/>
                 <span className={styles.name}>{movie.name}</span>

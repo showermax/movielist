@@ -1,11 +1,10 @@
 import React, {memo, useState} from 'react';
 import {FilterGenre} from "../FilterGenre";
-import {SuperButton} from "../SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {allFilms, watchListActions} from "reducers/watchListReducer";
 import {EditableSpan} from "../EditableSpan";
 import {addMovieTC} from "reducers/movieReducer";
-import {MoviesListDND} from "../Movies/MovieListDND";
+import {MoviesList} from "../Movies/MovieListDND";
 import styles from './Watchlist.module.scss';
 import {getMoviesTC} from "reducers/IMDBReducer";
 import {appDispatch, AppRootStateType} from "store/store";
@@ -60,25 +59,13 @@ export const Watchlist = memo((props: PropsType) => {
                     ? <h3>{props.title}</h3>
                     : <>
                         <EditableSpan title={props.title} editContent={editContentHandler}/>
-                        <SuperButton name={'🗑️'} onClickCallBack={removeWatchList}/>
                     </>}
-                {/*{props.watchListId !== allFilms && <SuperButton name={'🗑️'} onClickCallBack={removeWatchList}/>}*/}
             </div>
             {/*<button onClick={getFilms}>Get 100 films from IMDB</button>*/}
             {/*<button onClick={addFilmIMDB} >Save film</button>*/}
             {/*<button onClick={deleteAllFilms}>Delete all films</button>*/}
             <FilterGenre genre={genre} genreFilter={genreFilter}/>
-            {/*<MoviesList watchListId={props.watchListId} genre={genre}/>*/}
-            <MoviesListDND watchListId={props.watchListId} genre={genre}/>
-            {/*{props.watchListId !== 3 && <AddForm watchListId={props.watchListId}/>}*/}
+            <MoviesList watchListId={props.watchListId} genre={genre}/>
         </div>
     );
 })
-
-
-// type MovieType = {
-//     name: string
-//     watchListId: number
-//     movieListId: number
-//
-// }
