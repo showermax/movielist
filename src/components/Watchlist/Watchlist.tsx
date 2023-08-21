@@ -5,7 +5,7 @@ import {allFilms, watchListActions} from "reducers/watchListReducer";
 import {EditableSpan} from "../EditableSpan";
 import {addMovieTC} from "reducers/movieReducer";
 import {MoviesList} from "../Movies/MovieListDND";
-import styles from './Watchlist.module.scss';
+import styles from '../Movies/MoviesList.module.scss';
 import {getMoviesTC} from "reducers/IMDBReducer";
 import {appDispatch, AppRootStateType} from "store/store";
 import {transformFilm} from "utils/transformFilm";
