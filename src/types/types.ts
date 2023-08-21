@@ -9,6 +9,7 @@ export type WatchListType = {
 }
 export type NavbarPropsType = {
     watchList: WatchListType[]
+    addWatchList: ()=>void
 }
 
 export type MovieType = {

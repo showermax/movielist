@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Watchlist} from "components/Watchlist/Watchlist";
 import {Navbar} from "components/Navbar";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import {allFilms, getWatchListsTC} from "reducers/watchListReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {appDispatch, AppRootStateType} from "store/store";
@@ -19,10 +19,17 @@ function App() {
 
     const watchLists = useSelector<AppRootStateType, WatchListType[]>(state => state.watchLists)
 
+    const navigate = useNavigate();
+    const addWatchList = () => {
+        // const newId = v1();
+        // navigate(newId)
+        // dispatch(addWatchListAC(newId))
+    }
     return (
         <div className={styles.App}>
             <header className={"App-header"}>
                 <Navbar
+                    addWatchList={addWatchList}
                     watchList={watchLists}
                 />
             </header>
